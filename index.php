@@ -1,3 +1,15 @@
+<?php
+
+namespace PCC_EPE;
+
+require __DIR__ . '/vendor/autoload.php';
+
+use PCC_EPE\Functions;
+
+$file = Functions\ParseConfigFile::parseConfig();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,26 +20,21 @@
 
 <?php
 
-require_once 'ezproxyeditor.php';
 
-$file = file_get_contents("config.master.txt");
+if($file) {
 
-$config = explode('## ', $file);
 
-foreach($config as $stanza) {
-    
-        $stanza_title = strtok($stanza, "\n");
+    foreach ($file as $stanza) {
 
-        $pos = strpos($stanza, $stanza_title);
-        if ($pos !== false) {
-            $newstring = substr_replace($stanza, '', $pos, strlen($stanza_title));
-        }
-
-        echo "<b>".$stanza_title."</b>";
-        echo "<pre>".$newstring."</pre>";
+        echo "<b>" . $stanza->stanza_title . "</b>";
+        echo "<pre>" .$stanza->stanza_body . "</pre>";
 
         echo "<hr/>";
     }
+
+}
+
+
 ?>
 
 </body>
