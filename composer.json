@@ -3,12 +3,19 @@
     "description": "Proof of concept editor for EZProxy config file",
     "type": "project",
     "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "PCC_EPE\\": "./lib/"
+        }
+    },
+    "require": {
+    },
     "authors": [
         {
-            "name": "gustavo.lanzas",
-            "email": "gustavo.lanzas@gmail.com"
+            "name": "Gustavo Lanzas",
+            "email": "gustavo.lanzas@pcc.edu"
         }
-    ],
-    "minimum-stability": "dev",
-    "require": {}
+    ]
 }
