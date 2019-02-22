@@ -1,0 +1,14 @@
+{
+    "name": "gustavo.lanzas/ez-proxy-editor",
+    "description": "Proof of concept editor for EZProxy config file",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "gustavo.lanzas",
+            "email": "gustavo.lanzas@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
