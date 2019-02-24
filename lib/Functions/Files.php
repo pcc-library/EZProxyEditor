@@ -18,7 +18,7 @@ class Files
      */
     public function findConfigFile() {
 
-        $files = glob("config_*");
+        $files = glob(PCCEPEPATH."config_*");
         $files = array_combine($files, array_map('filectime', $files));
         arsort($files);
 
@@ -32,13 +32,12 @@ class Files
 
         if(!$filename) {
 
-            echo "Custom config.txt file not found. Creating new one from master. ";
-
+            echo "<div class='alert alert-primary'>Custom config.txt file not found. Creating new one from master.</div>";
             $filename = "config.master.txt";
 
         }
 
-        $file = file_get_contents($filename);
+        $file = file_get_contents(PCCEPEPATH.$filename);
 
         return $file;
 

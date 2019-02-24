@@ -4,9 +4,11 @@ namespace PCC_EPE;
 
 require __DIR__ . '/vendor/autoload.php';
 
+define( 'PCCEPEPATH', __DIR__.'/' );
+
 use PCC_EPE\Functions;
 
-$file = Functions\ParseConfigFile::parseConfig();
+$sections = Functions\ParseConfigFile::parseConfig();
 
 ?>
 
@@ -15,27 +17,58 @@ $file = Functions\ParseConfigFile::parseConfig();
 <head>
     <meta charset="UTF-8">
     <title>EZProxy Editor</title>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
 </head>
 <body>
-
+<main role="main" class="container">
 <?php
 
 
-if($file) {
+if($sections) {
 
+    foreach ($sections as $section) {
 
-    foreach ($file as $stanza) {
+        if($section['section_title']  && $section['content'] !=='' ) {
 
-        echo "<b>" . $stanza->stanza_title . "</b>";
-        echo "<pre>" .$stanza->stanza_body . "</pre>";
+            echo '<section class="container">';
 
-        echo "<hr/>";
+            echo "<h2>" . $section['section_title'] . "</h2>";
+
+            foreach ($section['content'] as $item) {
+
+                if($item) {
+
+                    echo "<article class='card'>";
+
+                    echo "<div class=\"card-body\">";
+
+                    echo "<h5 class=\"card-title\">" . $item['stanza_title'] . "</h5>";
+
+                    echo "<pre>" . $item['stanza_body'] . "</pre>";
+
+                    echo "</div>";
+
+                    echo "</article>";
+
+                }
+
+            }
+
+            echo '</section>';
+            echo "<hr/>";
+
+        }
     }
 
 }
 
 
 ?>
-
+</main>
 </body>
 </html>

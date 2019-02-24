@@ -8,8 +8,6 @@
 
 namespace PCC_EPE\Functions;
 
-use PCC_EPE\Functions\Files;
-
 class ParseConfigFile
 {
 
@@ -25,27 +23,71 @@ class ParseConfigFile
 
     public static function splitConfigFile( $file ) {
 
-        $output = [];
-        $config = explode('## ', $file);
+        $sections = explode('## ', $file);
 
-        foreach($config as $stanza) {
+        foreach($sections as $section) {
+
+            $section_title = strtok($section, "\n");
+
+            $pos = strpos($section, $section_title);
+            if ($pos !== false) {
+                $section_content = substr_replace($section, '', $pos, strlen($section_title));
+            }
+
+            $output[] = [
+                'section_title' => self::formatTitle($section_title),
+                'content' => self::formatContent($section_title, $section_content)
+            ];
+            
+        }
+        
+        return array_filter($output);
+        
+    }
+
+    public static function formatTitle($title) {
+
+        return str_replace('Start ','',$title);
+
+    }
+
+    public static function formatContent($title, $content) {
+
+//        switch(strtolower($title)) {
+//
+//            case 'start subscription databases':
+//            case 'start others':
+                return self::splitStanzas($content);
+//            break;
+//            default:
+//                return $content;
+//
+//        }
+
+    }
+
+    public static function splitStanzas($content) {
+
+        $stanzas = explode('# ', $content);
+
+        foreach($stanzas as $stanza) {
 
             $stanza_title = strtok($stanza, "\n");
 
             $pos = strpos($stanza, $stanza_title);
             if ($pos !== false) {
-                $stanza_body = substr_replace($stanza, '', $pos, strlen($stanza_title));
+                $stanza_content = substr_replace($stanza, '', $pos, strlen($stanza_title));
             }
 
             $output[] = [
-                'title' => $stanza_title,
-                'body' => $stanza_body
+                'stanza_title' => $stanza_title,
+                'stanza_body' => $stanza_content
             ];
-            
+
         }
-        
+
         return $output;
-        
+
     }
 
 }
