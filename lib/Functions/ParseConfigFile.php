@@ -53,20 +53,13 @@ class ParseConfigFile
 
     public static function formatContent($title, $content) {
 
-//        switch(strtolower($title)) {
-//
-//            case 'start subscription databases':
-//            case 'start others':
                 return self::splitStanzas($content);
-//            break;
-//            default:
-//                return $content;
-//
-//        }
 
     }
 
     public static function splitStanzas($content) {
+
+        $output = [];
 
         $stanzas = explode('# ', $content);
 
@@ -79,10 +72,7 @@ class ParseConfigFile
                 $stanza_content = substr_replace($stanza, '', $pos, strlen($stanza_title));
             }
 
-            $output[] = [
-                'stanza_title' => $stanza_title,
-                'stanza_body' => $stanza_content
-            ];
+            array_push(  $output, [ 'stanza_title' => $stanza_title, 'stanza_body' => $stanza_content]);
 
         }
 

@@ -63,3 +63,9 @@ typings/
 /vendor/
 
 config.master.txt
+
+assets
+
+config_*
+
+
