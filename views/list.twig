@@ -10,7 +10,7 @@
         {% if section.section_title is not empty %}
 
         <h2>{{ section.section_title }}</h2>
-            <input type="hidden" value="{{ section.section_title }}" name="section[{{ loop.index }}][title]" />
+            <input type="hidden" value="{{ section.section_title }}" name="section[][section_title]" />
 
             {% set section_loop = loop.index %}
 
@@ -19,8 +19,8 @@
                 {% if stanza.stanza_title %}
 
                     <h4>{{ stanza.stanza_title }}</h4>
-                    <input type="hidden" value="{{ stanza.stanza_title }}" name="section[{{ section_loop }}][stanza][{{ loop.index }}][title]" />
-                    <textarea rows="8" class="form-control" name="section[{{ section_loop }}][stanza][{{ loop.index }}][content]">{{ stanza.stanza_body }}</textarea>
+                    <input type="hidden" value="{{ stanza.stanza_title }}" name="section[][content][stanza_title]" />
+                    <textarea rows="8" class="form-control" name="section[][content][stanza_body]">{{ stanza.stanza_body }}</textarea>
 
                 {% endif %}
 
