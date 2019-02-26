@@ -22,8 +22,6 @@ class Files
         $files = array_combine($files, array_map('filectime', $files));
         arsort($files);
 
-        echo "<div class='alert alert-success'>Found ".key($files)."</div>";
-
         return key($files); // the filename
 
     }
@@ -34,14 +32,19 @@ class Files
 
         if(!$filename) {
 
-            echo "<div class='alert alert-primary'>Custom config.txt file not found. Creating new one from master.</div>";
+            $messages['status'] = false;
+            $messages['text'] = "Custom config.txt file not found. Creating new one from master.";
             $filename = PCCEPEPATH."config.master.txt";
+
+        } else {
+            $messages['status'] = true;
+            $messages['text'] = "Found ".$filename;
 
         }
 
         $file = file_get_contents($filename);
 
-        return $file;
+        return ['file' => $file, 'messages' => $messages];
 
     }
 

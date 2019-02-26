@@ -33,7 +33,7 @@ elixir(function(mix) {
 
 elixir(function(mix) {
     mix.webpack(
-        paths.jsPath+'*.js',
+        [paths.jsPath+'*.js', paths.bootstrap+'/js/dist/*.js'],
         './assets/js/app.js'
     );
 });

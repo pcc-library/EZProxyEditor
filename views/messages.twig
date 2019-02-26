@@ -1,0 +1,14 @@
+{% set msg_status = "primary" %}
+
+{% if status %}
+
+    {% set msg_status = "success" %}
+
+{% endif %}
+
+<div class="alert alert-{{ msg_status }} alert-dismissible fade show" role="alert">
+    <strong>{{ text }}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>

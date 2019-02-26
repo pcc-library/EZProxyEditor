@@ -23,7 +23,9 @@ class ParseConfigFile
 
     public static function splitConfigFile( $file ) {
 
-        $sections = explode('## ', $file);
+        $sections = explode('## ', $file['file']);
+
+        $output['messages'] = $file['messages'];
 
         foreach($sections as $section) {
 
@@ -34,7 +36,7 @@ class ParseConfigFile
                 $section_content = substr_replace($section, '', $pos, strlen($section_title));
             }
 
-            $output[] = [
+            $output['sections'][] = [
                 'section_title' => self::formatTitle($section_title),
                 'content' => self::formatContent($section_title, $section_content)
             ];
@@ -59,8 +61,6 @@ class ParseConfigFile
 
     public static function splitStanzas($content) {
 
-        $output = [];
-
         $stanzas = explode('# ', $content);
 
         foreach($stanzas as $stanza) {
@@ -72,11 +72,11 @@ class ParseConfigFile
                 $stanza_content = substr_replace($stanza, '', $pos, strlen($stanza_title));
             }
 
-            array_push(  $output, [ 'stanza_title' => $stanza_title, 'stanza_body' => $stanza_content]);
+            $output[] = [ 'stanza_title' => $stanza_title, 'stanza_body' => $stanza_content];
 
         }
 
-        return $output;
+        return array_filter($output);
 
     }
 
