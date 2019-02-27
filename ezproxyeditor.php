@@ -12,9 +12,3 @@ use PCC_EPE\Frontend\RenderUI;
 $data = ParseConfigFile::parseConfig();
 
 echo RenderUI::renderSections($data);
-
-echo '<pre>'.print_r(json_encode($data['sections'], JSON_PRETTY_PRINT),true).'</pre>';
-
-
-echo '<pre>'.print_r(json_encode($_POST, JSON_PRETTY_PRINT),true).'</pre>';
-

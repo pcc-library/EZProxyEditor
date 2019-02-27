@@ -10,17 +10,21 @@
         {% if section.section_title is not empty %}
 
         <h2>{{ section.section_title }}</h2>
-            <input type="hidden" value="{{ section.section_title }}" name="section[][section_title]" />
+            <input type="hidden" value="{{ section.section_title }}" name="section[{{ loop.index -1 }}][section_title]" />
 
-            {% set section_loop = loop.index %}
+            {% set section_loop = loop.index -1 %}
 
             {% for stanza in section.content %}
 
                 {% if stanza.stanza_title %}
 
+                    <fieldset name="section[][content]">
+
                     <h4>{{ stanza.stanza_title }}</h4>
-                    <input type="hidden" value="{{ stanza.stanza_title }}" name="section[][content][stanza_title]" />
-                    <textarea rows="8" class="form-control" name="section[][content][stanza_body]">{{ stanza.stanza_body }}</textarea>
+                    <input type="hidden" value="{{ stanza.stanza_title }}" name="section[{{ section_loop }}][content][{{ loop.index -1 }}][stanza_title]" />
+                    <textarea rows="8" class="form-control" name="section[{{ section_loop }}][content][{{ loop.index -1 }}][stanza_body]">{{ stanza.stanza_body }}</textarea>
+
+                    </fieldset>
 
                 {% endif %}
 
