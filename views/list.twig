@@ -10,7 +10,7 @@
 
     <div class="row flex-xl-nowrap">
         <div class="col-12 col-md-4 col-xl-3 bd-sidebar" id="sidebar">
-
+        <div class="wrapper">
             <form method="post">
 
                 {% for section in sections %}
@@ -27,10 +27,19 @@
 
             </form>
         </div>
+        </div>
         <div class="col">
-            <div class="container">
+            <div class="wrapper">
                {% include 'editor.twig' %}
             </div>
+        </div>
+
+        <div class="col-12 col-md-4 col-xl-3">
+
+            <div class="wrapper">
+                POO
+            </div>
+
         </div>
     </div>
 
