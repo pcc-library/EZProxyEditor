@@ -1,4 +1,4 @@
-<form class="form-horizontal">
+<form class="form-horizontal" onsubmit="return false;">
     <fieldset>
 
         <!-- Form Name -->
@@ -8,24 +8,20 @@
         <input type="hidden" id="previous_body" value="" />
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-sm-3 col-form-label" for="stanza_title">Stanza Title</label>
-            <div class="col-sm-9">
-                <input id="stanza_title" name="stanza_title" type="text" placeholder="title" class="form-control input-md" readonly="">
-            </div>
+            <label class="form-label" for="stanza_title">Stanza Title</label>
+            <input id="stanza_title" name="stanza_title" type="text" placeholder="title" class="form-control input-md" readonly="">
         </div>
 
         <!-- Textarea -->
         <div class="form-group">
-            <label class="col-sm-3 col-form-label" for="stanzabody">Stanza Content</label>
-            <div class="col-md-9">
-                <textarea rows="8" class="form-control" id="stanza_body" name="stanzabody" readonly=""></textarea>
-            </div>
+            <label class="form-label" for="stanzabody">Stanza Content</label>
+            <textarea rows="8" class="form-control" id="stanza_body" name="stanzabody" readonly=""></textarea>
         </div>
 
         <div class="form-group">
 
-            <a href="javascript:void(0);" id="save_btn" class="btn-primary btn">Save</a>
-            <a href="javascript:void(0);" id="revert_btn" class="btn-secondary btn">Undo Changes</a>
+            <button id="revert_btn" class="btn-secondary btn" disabled>Undo Changes</button>
+            <button id="save_btn" class="btn-primary btn" disabled>Save</button>
 
         </div>
 

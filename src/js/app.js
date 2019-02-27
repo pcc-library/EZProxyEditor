@@ -10,8 +10,6 @@ function active_navigation(sidebar_links,clickedBtnID) {
 
     edit_data(clickedBtnID);
 
-    console.log(clicked_item);
-
 }
 
 function edit_data(clickedBtnID) {
@@ -19,15 +17,13 @@ function edit_data(clickedBtnID) {
     var stanza_title = $('#'+clickedBtnID+' input.stanza_title').val().trim(),
         stanza_body = $('#'+clickedBtnID+' input.stanza_body').val().trim();
 
-    console.log(stanza_body);
+    $('#previous_title').val(stanza_title);
+    $('#previous_body').val(stanza_body)
 
     $('#stanza_title').val(stanza_title).removeAttr('readonly');
-
-    $('#previous_title').val(stanza_title);
-
     $('#stanza_body').val(stanza_body).removeAttr('readonly');
 
-    $('#previous_body').val(stanza_body)
+    $('#save_btn').removeAttr('disabled');
 
 }
 
@@ -41,6 +37,24 @@ function buttons() {
         revert_editor();
     })
 
+
+    $("#stanza_body").on('input',function(e){
+        if(e.target.value === ''){
+            // Textarea has no value
+            $('#revert_btn').attr('disabled');
+        } else {
+            // Textarea has a value
+            $('#revert_btn').removeAttr('disabled');
+        }
+    });
+
+
+
+}
+function disable_revert_button() {
+
+    $('#revert_btn').attr('disabled');
+
 }
 
 function revert_editor() {
@@ -49,7 +63,10 @@ function revert_editor() {
         previous_body = $('#previous_body').val();
 
     $('#stanza_title').val(previous_title);
+
     $('#stanza_body').val(previous_body);
+
+    disable_revert_button();
 }
 
 $( document ).ready(function() {
@@ -60,7 +77,6 @@ $( document ).ready(function() {
         var clickedBtnID = $(this).attr('id'); // or var clickedBtnID = this.id
 
        active_navigation(sidebar_links,clickedBtnID);
-        console.log('you clicked on button #' + clickedBtnID);
     });
 
     buttons();
