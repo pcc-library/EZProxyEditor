@@ -1,6 +1,17 @@
-.bd-sidebar {
 
-  border-right: 1px solid $gray-300;
+.sidebar {
+
+  &.left {
+
+    border-right: 1px solid $gray-300;
+
+  }
+
+  &.right {
+
+    border-left: 1px solid $gray-300;
+
+  }
 
 
   .bd-toc-item {

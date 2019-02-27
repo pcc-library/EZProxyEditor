@@ -65,5 +65,9 @@ $( document ).ready(function() {
 
     buttons();
 
+    setTimeout(function() {
+        $(".alert").alert('close');
+    }, 4000);
+
 });
 
