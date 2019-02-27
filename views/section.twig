@@ -1,5 +1,44 @@
-<section class="container">
 
-    <h2>{{ section.title }}</h2>
+        <div class="bd-toc-item">
 
-</section>
+            <div data-target="#menu{{ loop.index -1 }}" class="bd-toc-link" data-toggle="collapse">
+                <h5>{{ section.section_title }}</h5>
+                <input type="hidden" value="{{ section.section_title }}" name="section[{{ loop.index -1 }}][section_title]" />
+
+            </div>
+
+            <ul class="collapse" id="menu{{ loop.index -1 }}" data-parent="#sidebar">
+
+                {% set section_loop = loop.index -1 %}
+
+                {% for stanza in section.content %}
+
+                {% if stanza.stanza_title %}
+
+                <li>
+                <a href="#" class="" data-parent="#menu{{ section_loop }}">
+                    {{ stanza.stanza_title }}
+
+                <input type="hidden" value="{{ stanza.stanza_title }}" name="section[{{ section_loop }}][content][{{ loop.index -1 }}][stanza_title]" />
+                <input type="hidden" name="section[{{ section_loop }}][content][{{ loop.index -1 }}][stanza_body]" value="{{ stanza.stanza_body }}" />
+
+                </a>
+
+                </li>
+
+                {% endif %}
+
+
+                {% endfor %}
+
+
+            </ul>
+
+        </div>
+
+
+
+
+
+
+

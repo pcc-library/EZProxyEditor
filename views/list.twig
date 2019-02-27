@@ -1,41 +1,38 @@
 {% extends 'base.twig' %}
-{% block content %}
 
-    <form method="post">
+{% block messages %}
 
     {% include 'messages.twig' with { 'status': messages.status, 'text': messages.text } %}
 
-    {% for section in sections %}
+{% endblock %}
 
-        {% if section.section_title is not empty %}
+{% block content %}
 
-        <h2>{{ section.section_title }}</h2>
-            <input type="hidden" value="{{ section.section_title }}" name="section[{{ loop.index -1 }}][section_title]" />
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-4 col-xl-3 bd-sidebar" id="sidebar">
 
-            {% set section_loop = loop.index -1 %}
+            <form method="post">
 
-            {% for stanza in section.content %}
+                {% for section in sections %}
 
-                {% if stanza.stanza_title %}
+                {% if section.section_title is not empty %}
 
-                    <fieldset name="section[][content]">
-
-                    <h4>{{ stanza.stanza_title }}</h4>
-                    <input type="hidden" value="{{ stanza.stanza_title }}" name="section[{{ section_loop }}][content][{{ loop.index -1 }}][stanza_title]" />
-                    <textarea rows="8" class="form-control" name="section[{{ section_loop }}][content][{{ loop.index -1 }}][stanza_body]">{{ stanza.stanza_body }}</textarea>
-
-                    </fieldset>
+                    {% include 'section.twig' %}
 
                 {% endif %}
 
-            {% endfor %}
+                {% endfor %}
 
-        {% endif %}
+                <button class="btn-primary btn" type="submit">Submit</button>
 
-    {% endfor %}
+            </form>
+        </div>
+        <div class="col">
+            <div class="container">
+               {% include 'editor.twig' %}
+            </div>
+        </div>
+    </div>
 
-        <button class="btn btn-primary" type="submit">Submit</button>
-
-    </form>
 
 {% endblock %}

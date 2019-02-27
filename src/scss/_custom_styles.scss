@@ -1,0 +1,57 @@
+.bd-toc-item {
+
+  .bd-toc-link {
+
+    /* menu item */
+
+    h5 {
+
+      color: #666;
+      font-size: 1.1em;
+      padding: 0 0 0 0em;
+
+      &::before {
+        content: '\25B8';
+        margin-right: 5px;
+        color: #666;
+      }
+
+    }
+
+    /* menu item expanded */
+
+    &[aria-expanded="true"] {
+
+      h5 {
+        color: #111;
+        &::before {
+          content: '\25BE';
+          margin-right: 5px;
+          color: #111;
+        }
+
+      }
+
+
+    }
+
+  }
+
+
+  ul {
+
+    max-height: 240px;
+    overflow: scroll;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 1em;
+
+    li {
+
+      list-style: none;
+
+    }
+
+  }
+
+}
