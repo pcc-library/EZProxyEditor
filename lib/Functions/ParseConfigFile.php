@@ -25,7 +25,13 @@ class ParseConfigFile
 
         $sections = explode('## ', $file['file']);
 
-        $output['messages'] = $file['messages'];
+        $output = [
+            'rss_feed' => RSSFeed::fetchRSSFeed(),
+            'messages' => [],
+            'sections' => []
+        ];
+
+        array_push($output['messages'], $file['messages']);
 
         foreach($sections as $section) {
 
@@ -36,10 +42,10 @@ class ParseConfigFile
                 $section_content = substr_replace($section, '', $pos, strlen($section_title));
             }
 
-            $output['sections'][] = [
+            array_push($output['sections'],[
                 'section_title' => self::formatTitle($section_title),
-                'content' => self::formatContent($section_title, $section_content)
-            ];
+                'content' => self::formatContent($section_title, $section_content),
+            ]);
             
         }
         

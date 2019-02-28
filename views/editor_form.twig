@@ -1,0 +1,29 @@
+<form class="form-horizontal" onsubmit="return false;">
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend>Edit Stanza</legend>
+
+        <input type="hidden" id="previous_title" value="" />
+        <input type="hidden" id="previous_body" value="" />
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="form-label" for="stanza_title">Stanza Title</label>
+            <input id="stanza_title" name="stanza_title" type="text" placeholder="title" class="form-control input-md" readonly="">
+        </div>
+
+        <!-- Textarea -->
+        <div class="form-group">
+            <label class="form-label" for="stanzabody">Stanza Content</label>
+            <textarea rows="8" class="form-control" id="stanza_body" name="stanzabody" readonly=""></textarea>
+        </div>
+
+        <div class="form-group">
+
+            <button id="revert_btn" class="btn-secondary btn" disabled>Revert</button>
+            <button id="save_btn" class="btn-primary btn" disabled>Update Stanza</button>
+
+        </div>
+
+    </fieldset>
+</form>

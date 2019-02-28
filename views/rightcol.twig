@@ -1,0 +1,25 @@
+<div class="card">
+
+    <div class="card-header">
+        <h5 class="card-title">OCLC EZproxy RSS</h5>
+        <h6 class="card-subtitle text-muted">{{ rss_feed.channel.pubDate | date("F jS \\a\\t g:ia")}}</h6>
+
+    </div>
+    <div class="card-body">
+        <p class="card-text">Recent additions and changes to database specific configuration instructions, from OCLC RSS Feed.</p>
+
+        <ul class="list-unstyled">
+
+            {% for item in rss_feed.channel.item %}
+
+                <li><a href="{{ item.link }}">{{ item.title }}</a> <span class="text-muted">{{ item.pubDate | date('F jS') }}</span></li>
+
+            {% endfor %}
+
+        </ul>
+
+        <a href="https://help.oclc.org/Library_Management/EZproxy" class="card-link">EZproxy Documentation</a><br/>
+        <a href="https://help.oclc.org/Library_Management/EZproxy/Database_stanzas/000_Database_stanzas_recent" class="card-link">Most Recent Stanzas</a>
+
+    </div>
+</div>

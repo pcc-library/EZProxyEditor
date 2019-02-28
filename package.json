@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/pcc-library/EZProxyEditor#readme",
   "devDependencies": {
+    "font-awesome": "^4.7.0",
     "gulp": "^3.9.1",
     "gulp-notify": "^2.2.0",
     "jquery": "^3.3.1",

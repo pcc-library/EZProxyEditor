@@ -1,29 +1,29 @@
-<form class="form-horizontal" onsubmit="return false;">
-    <fieldset>
+{% extends 'base.twig' %}
 
-        <!-- Form Name -->
-        <legend>Edit Stanza</legend>
+{% block sidebar %}
 
-        <input type="hidden" id="previous_title" value="" />
-        <input type="hidden" id="previous_body" value="" />
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="form-label" for="stanza_title">Stanza Title</label>
-            <input id="stanza_title" name="stanza_title" type="text" placeholder="title" class="form-control input-md" readonly="">
-        </div>
+    {% include 'sidebar.twig' %}
 
-        <!-- Textarea -->
-        <div class="form-group">
-            <label class="form-label" for="stanzabody">Stanza Content</label>
-            <textarea rows="8" class="form-control" id="stanza_body" name="stanzabody" readonly=""></textarea>
-        </div>
+{% endblock %}
 
-        <div class="form-group">
+{% block content %}
 
-            <button id="revert_btn" class="btn-secondary btn" disabled>Undo Changes</button>
-            <button id="save_btn" class="btn-primary btn" disabled>Save</button>
+        {% include 'editor_form.twig' %}
 
-        </div>
+{% endblock %}
 
-    </fieldset>
-</form>
+{% block rightcol %}
+
+    {% include 'rightcol.twig' %}
+
+{% endblock %}
+
+{% block messages %}
+
+    {% for message in messages %}
+
+        {% include 'messages.twig' with { 'status': message.status, 'text': message.text } %}
+
+    {% endfor %}
+
+{% endblock %}

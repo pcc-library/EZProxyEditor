@@ -28,8 +28,9 @@ class RenderUI
         ));
         $twig->addExtension(new Twig_Extension_Debug());
 
-        return $twig->render('list.twig', $data);
+        return $twig->render('editor.twig', $data);
 
     }
+
 
 }

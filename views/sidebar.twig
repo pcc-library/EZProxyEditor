@@ -1,0 +1,17 @@
+<h5>Sections</h5>
+
+<form method="post">
+
+    {% for section in sections %}
+
+        {% if section.section_title is not empty %}
+
+            {% include 'section.twig' %}
+
+        {% endif %}
+
+    {% endfor %}
+
+    <button class="btn-light btn" type="submit">Submit</button>
+
+</form>

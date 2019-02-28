@@ -6,7 +6,8 @@ var paths = {
     jsPath:   './src/js/',
     scssPath: './src/scss/',
     nodePath: './node_modules/',
-    bootstrap: './node_modules/bootstrap/'
+    bootstrap: './node_modules/bootstrap/',
+    fontawesome: './node_modules/font-awesome/'
 };
 
 // Terminal Commands
@@ -17,23 +18,11 @@ var paths = {
 // Task #1: Using Sass's @import syntax, Elixir will compile your imports into a single file before compress. Don't forget that all paths are relative to your assetsPath configuration above.
 elixir(function(mix) {
 
+    mix.copy(
+        [paths.fontawesome+'/fonts'], './assets/fonts/font-awesome'
+    );
     mix.sass('./src/scss/styles.scss','./assets/css/');
-
-
-    // mix.scripts([
-    //     paths.bootstrap + '/dist/js/bootstrap.js',
-    // ],'./assets/js/bootstrap.min.js')
-
-        // .scripts([
-        //     paths.jsPath+'*.js'
-        // ],'./assets/js/app.js');
-
-
-});
-
-elixir(function(mix) {
     mix.webpack(
-        [paths.jsPath+'*.js', paths.bootstrap+'/js/dist/*.js'],
-        './assets/js/app.js'
+        [paths.jsPath+'*.js', paths.bootstrap+'/js/dist/*.js'], './assets/js/app.js'
     );
 });
