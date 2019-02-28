@@ -27,6 +27,8 @@ function edit_data(clickedBtnID) {
 
 }
 
+function update_stanza() {}
+
 function buttons() {
 
     $('#save_btn').click(function () {

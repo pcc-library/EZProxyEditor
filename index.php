@@ -22,7 +22,7 @@ use PCC_EPE\Functions;
 </head>
 <body>
 
-<?php $sections = Functions\ParseConfigFile::parseConfig(); ?>
+<?php $sections = Functions\LoadConfig::parseConfig(); ?>
 <main role="main" class="container">
 
 <?php

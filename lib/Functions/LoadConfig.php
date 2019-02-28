@@ -8,10 +8,10 @@
 
 namespace PCC_EPE\Functions;
 
-class ParseConfigFile
+class LoadConfig
 {
 
-    public static function parseConfig() {
+    public static function init() {
 
         $loadFile = new Files();
 
