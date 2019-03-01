@@ -13,6 +13,19 @@ $data = LoadConfig::init();
 
 echo RenderUI::renderSections($data);
 
-if($_POST) {
-echo '<pre>'.print_r(json_encode($_POST, JSON_PRETTY_PRINT),true).'</pre>';
-};
+//echo "<pre>".print_r($_POST, true)."</pre>";
+//
+//if($_POST) {
+//
+//    $data['sections'] = $_POST['sections'];
+//
+//    echo RenderUI::renderSections($data);
+//
+//} else {
+//
+//    echo RenderUI::renderSections($data);
+//
+//};
+
+echo "<pre>".print_r($_POST, true)."</pre>";
+
