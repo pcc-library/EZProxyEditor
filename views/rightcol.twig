@@ -12,7 +12,7 @@
 
             {% for item in rss_feed.channel.item %}
 
-                <li><a href="{{ item.link }}">{{ item.title }}</a> <span class="text-muted">{{ item.pubDate | date('F jS') }}</span></li>
+                <li><a href="{{ item.link }}" target="_blank">{{ item.title }}</a> <span class="text-muted date">{{ item.pubDate | date('m-d-Y g:ia') }}</span></li>
 
             {% endfor %}
 

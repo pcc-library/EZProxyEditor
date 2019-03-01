@@ -10,15 +10,23 @@ namespace PCC_EPE\Functions;
 
 use Exception;
 
+/**
+ * Class Files
+ * Read & write config.txt files
+ * @package PCC_EPE\Functions
+ */
 class Files
 {
 
-    /**
-     * @return null|string
-     */
-    public function findConfigFile() {
 
-        $files = glob(PCCEPEPATH."config_*");
+    /**
+     * Find the file matching the pattern, return the filename
+     * @param string $pattern
+     * @return int|string|null
+     */
+    public function findConfigFile($pattern = 'config_*') {
+
+        $files = glob(PCCEPEPATH.$pattern);
         $files = array_combine($files, array_map('filectime', $files));
         arsort($files);
 
@@ -26,6 +34,10 @@ class Files
 
     }
 
+    /**
+     * Find the latest config file, and if not found, load config.master.txt
+     * @return array
+     */
     public function loadConfigFile() {
 
         $filename = $this->findConfigFile();
@@ -48,6 +60,11 @@ class Files
 
     }
 
+    /**
+     * Delete local file
+     * @param $file
+     * @return bool
+     */
     public function RemoveLocalFile($file) {
 
         if(file_exists($file)) {

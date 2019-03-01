@@ -8,9 +8,17 @@
 
 namespace PCC_EPE\Functions;
 
+/**
+ * Class LoadConfig
+ * @package PCC_EPE\Functions
+ * Initialize the editor by loading config file, fetch OCLC RSS, populate content array for twig to render.
+ */
 class LoadConfig
 {
 
+    /**
+     * @return array
+     */
     public static function init() {
 
         $loadFile = new Files();
@@ -21,11 +29,16 @@ class LoadConfig
 
     }
 
-    public static function splitConfigFile( $file ) {
+    /**
+     * @param $file
+     * @return array
+     */
+    public static function splitConfigFile($file ) {
 
         $sections = explode('## ', $file['file']);
 
         $output = [
+            'config'   => [],
             'rss_feed' => RSSFeed::fetchRSSFeed(),
             'messages' => [],
             'sections' => []
@@ -53,21 +66,35 @@ class LoadConfig
         
     }
 
+    /**
+     * @param $title
+     * @return mixed
+     */
     public static function formatTitle($title) {
 
         return str_replace('Start ','',$title);
 
     }
 
+    /**
+     * @param $title
+     * @param $content
+     * @return array
+     */
     public static function formatContent($title, $content) {
 
                 return self::splitStanzas($content);
 
     }
 
+    /**
+     * @param $content
+     * @return array
+     */
     public static function splitStanzas($content) {
 
         $stanzas = explode('# ', $content);
+        $output = [];
 
         foreach($stanzas as $stanza) {
 
@@ -78,7 +105,7 @@ class LoadConfig
                 $stanza_content = substr_replace($stanza, '', $pos, strlen($stanza_title));
             }
 
-            $output[] = [ 'stanza_title' => $stanza_title, 'stanza_body' => $stanza_content];
+            array_push($output,['stanza_title' => $stanza_title, 'stanza_body' => $stanza_content]);
 
         }
 
