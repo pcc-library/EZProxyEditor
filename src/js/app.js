@@ -57,10 +57,12 @@ function update_stanza() {
     var target_id = $('#origin_id').val(),
         stanza_title = $('#stanza_title').val(),
         stanza_body = $('#stanza_body').val(),
-        target = $('#'+target_id+' a');
+        target = $('#'+target_id);
 
-    target.find('a').text(stanza_title);
-    target.find('.stanza_title').val(stanza_title);
+    target.children('a').text(stanza_title);
+    target.children('.stanza_title').val(stanza_title);
+    target.children('.stanza_body').val(stanza_body);
+    target.addClass('updated');
 
 }
 
