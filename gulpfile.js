@@ -1,51 +1,28 @@
-const elixir = require('laravel-elixir');
-require('laravel-elixir-vue-2');
-require('laravel-elixir-webpack-official');
+var elixir = require('laravel-elixir'); // Require Elixir
 
-// elixir.config.assetsPath = './src/'; // As we said above, make sure this points to the directory within your theme that stores your assets. Also be sure to include the trailing slash.
+elixir.config.assetsPath = './lib/'; // As we said above, make sure this points to the directory within your theme that stores your assets. Also be sure to include the trailing slash.
 
-elixir((mix) => {
-    /**
-     *  Building SASS files
-     */
-    // mix.sass('./src/scss/styles.scss', 'assets/css/styles.css');
+var paths = {
+    jsPath:   './src/js/',
+    scssPath: './src/scss/',
+    nodePath: './node_modules/',
+    bootstrap: './node_modules/bootstrap/',
+    fontawesome: './node_modules/font-awesome/'
+};
 
-    /**
-     *  Concatenating font-awesome styles files in vendor.css
-     */
-    // mix.styles([
-    //     './node_modules/font-awesome/css/font-awesome.css'
-    // ], 'assets/css/vendor.css');
+// Terminal Commands
+// To run all tasks one time: gulp
+// To have Gulp run when it detects changes in relevant files: gulp watch
+// To have Gulp compress/minify your output for production: gulp --production
 
-    /**
-     *  Coping fonts of font-awesome for public/build/fonts path
-     */
-    mix.copy('./node_modules/font-awesome/fonts', 'assets/fonts/font-awesome');
+// Task #1: Using Sass's @import syntax, Elixir will compile your imports into a single file before compress. Don't forget that all paths are relative to your assetsPath configuration above.
+elixir(function(mix) {
 
-
-    /**
-     *  Building Javascript files
-     */
-    // mix.webpack('./src/js/main.js', 'assets/js/app.js');
-
-    elixir(function(mix) {
-        mix.webpack('./src/js/main.js', 'assets/js/app.js',{
-            module: {
-                loaders: [
-                    { test: /\.css$/, loader: 'style!css' },
-                    { test: /\.scss$/, loader: 'style!scss' },
-                ],
-            },
-        });
-    });
-
-    /**
-     *  Versioning files
-     */
-    // mix.version([
-    //     'assets/css/vendor.css',
-    //     'assets/css/app.css',
-    //     'assets/js/app.js',
-    // ]);
-
+    mix.copy(
+        [paths.fontawesome+'/fonts'], './assets/fonts/font-awesome'
+    );
+    mix.sass('./src/scss/styles.scss','./assets/css/');
+    mix.webpack(
+        [paths.jsPath+'*.js', paths.bootstrap+'/js/dist/*.js'], './assets/js/app.js'
+    );
 });

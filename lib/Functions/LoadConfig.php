@@ -38,13 +38,13 @@ class LoadConfig
         $sections = explode('## ', $file['file']);
 
         $output = [
-            'config'   => [],
+            //'config'   => [],
             'rss_feed' => RSSFeed::fetchRSSFeed(),
-            'messages' => [],
-            'sections' => []
+            'messages' => $file['messages'],
+            //'sections' => []
         ];
 
-        array_push($output['messages'], $file['messages']);
+        $i = 1;
 
         foreach($sections as $section) {
 
@@ -55,15 +55,21 @@ class LoadConfig
                 $section_content = substr_replace($section, '', $pos, strlen($section_title));
             }
 
-            array_push($output['sections'],[
-                'section_title' => self::formatTitle($section_title),
-                'content' => self::formatContent($section_title, $section_content),
-            ]);
-            
+            if( strlen( $section_title ) > 1  ) {
+
+                $output['sections'][$i] = [
+                    'section_title' => self::formatTitle($section_title),
+                    'content' => self::formatContent($section_title, $section_content),
+                ];
+
+                $i++;
+
+            }
+
         }
-        
+
         return array_filter($output);
-        
+
     }
 
     /**
@@ -83,7 +89,7 @@ class LoadConfig
      */
     public static function formatContent($title, $content) {
 
-                return self::splitStanzas($content);
+        return self::splitStanzas($content);
 
     }
 
@@ -94,7 +100,8 @@ class LoadConfig
     public static function splitStanzas($content) {
 
         $stanzas = explode('# ', $content);
-        $output = [];
+        //$output = [];
+        $i = 1;
 
         foreach($stanzas as $stanza) {
 
@@ -105,7 +112,16 @@ class LoadConfig
                 $stanza_content = substr_replace($stanza, '', $pos, strlen($stanza_title));
             }
 
-            array_push($output,['stanza_title' => $stanza_title, 'stanza_body' => $stanza_content]);
+            if( strlen($stanza_title) > 1 ) {
+
+                $output[$i] = [
+                    'stanza_title' => $stanza_title,
+                    'stanza_body' => trim($stanza_content)
+                ];
+
+                $i++;
+
+            }
 
         }
 
