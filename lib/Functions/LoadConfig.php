@@ -44,6 +44,8 @@ class LoadConfig
             'sections' => []
         ];
 
+        $i = 1;
+
         array_push($output['messages'], $file['messages']);
 
         foreach($sections as $section) {
@@ -55,10 +57,12 @@ class LoadConfig
                 $section_content = substr_replace($section, '', $pos, strlen($section_title));
             }
 
-            array_push($output['sections'],[
+            $output['sections'][$i] = [
                 'section_title' => self::formatTitle($section_title),
                 'content' => self::formatContent($section_title, $section_content),
-            ]);
+            ];
+
+            $i++;
             
         }
         
@@ -95,6 +99,7 @@ class LoadConfig
 
         $stanzas = explode('# ', $content);
         $output = [];
+        $i = 1;
 
         foreach($stanzas as $stanza) {
 
@@ -105,7 +110,9 @@ class LoadConfig
                 $stanza_content = substr_replace($stanza, '', $pos, strlen($stanza_title));
             }
 
-            array_push($output,['stanza_title' => $stanza_title, 'stanza_body' => $stanza_content]);
+            $output[$i] = ['stanza_title' => $stanza_title, 'stanza_body' => $stanza_content];
+
+            $i++;
 
         }
 
