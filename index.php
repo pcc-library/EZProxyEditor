@@ -27,5 +27,5 @@ echo RenderUI::renderSections($data);
 //
 //};
 
-echo "<pre>".print_r($_POST, true)."</pre>";
+//echo "<pre>".print_r($_POST, true)."</pre>";
 
