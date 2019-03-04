@@ -4,18 +4,47 @@
     <meta charset="UTF-8">
     <title>EZProxy Editor</title>
 
-    <link rel="stylesheet" type="text/css" href="assets/css/vendor.css" />
+    <script src="assets/js/app.js"></script>
     <link rel="stylesheet" type="text/css" href="assets/css/styles.css" />
 
 </head>
 <body>
 
-{#{% include 'navbar.twig' %}#}
 
-<div id="app" class="container-fluid">
-</div>
+{% include 'navbar.twig' %}
 
-<script src="assets/js/app.js"></script>
+<main role="main" class="container-fluid">
+
+
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-4 col-xl-3 sidebar left" id="sidebar">
+            <div class="wrapper">
+
+                {% block sidebar %}{% endblock %}
+
+            </div>
+        </div>
+        <div class="col">
+            <div class="wrapper">
+
+                {% block content %}{% endblock %}
+
+            </div>
+        </div>
+
+        <div class="col-12 col-md-5 col-xl-4 sidebar right">
+
+            <div class="wrapper">
+
+                {% block messages %}{% endblock %}
+                {% block rightcol %}{% endblock %}
+
+            </div>
+
+        </div>
+    </div>
+
+</main>
+
 </body>
-
 </html>
