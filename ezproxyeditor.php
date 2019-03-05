@@ -11,7 +11,9 @@ use PCC_EPE\Frontend\RenderUI;
 
 $data = LoadConfig::init();
 
-echo RenderUI::renderSections($data);
+$preview = $_GET['preview'];
+
+echo RenderUI::renderSections($data,$preview);
 
 //if($_POST) {
 //echo '<pre>'.print_r(json_encode($data, JSON_PRETTY_PRINT),true).'</pre>';

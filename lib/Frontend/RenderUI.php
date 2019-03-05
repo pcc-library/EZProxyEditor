@@ -15,8 +15,7 @@ use \Twig_Extension_Debug;
 class RenderUI
 {
 
-    public static function renderSections($data) {
-
+    public static function renderSections($data,$preview) {
 
     // Specify our Twig templates location
         $loader = new Twig_Loader_Filesystem(PCCEPEPATH .'/views');
@@ -28,7 +27,7 @@ class RenderUI
         ));
         $twig->addExtension(new Twig_Extension_Debug());
 
-        return $twig->render('editor.twig', $data);
+        return $preview ? $twig->render('preview_config.twig', $data) : $twig->render('editor.twig', $data);
 
     }
 

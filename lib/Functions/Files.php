@@ -51,7 +51,7 @@ class Files
 
         } else {
             $messages['status'] = true;
-            $messages['text'] = "Found ".$filename;
+            $messages['text'] = "Found ".basename($filename);
             $JSON = true;
 
         }
@@ -67,11 +67,11 @@ class Files
         try {
             file_put_contents($filename, json_encode($data['sections'], JSON_PRETTY_PRINT));
 
-           $data['messages'][] = ['status'=>true, 'text'=>'Wrote file '.$filename.' successfully'];
+           $data['messages'][] = ['status'=>true, 'text'=>'Wrote file '.basename($filename).' successfully'];
 
         }  catch(Exception $e) {
 
-           $data['messages'][] = ['status'=>false, 'text'=>'Couldn\'t write file '.$filename];
+           $data['messages'][] = ['status'=>false, 'text'=>'Couldn\'t write file '.basename($filename)];
 
         }
 
