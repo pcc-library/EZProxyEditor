@@ -67,7 +67,7 @@ class Files
         try {
             file_put_contents($filename, json_encode($data['sections'], JSON_PRETTY_PRINT));
 
-           $data['messages'][] = ['status'=>true, 'text'=>'Wrote file '.$filename.' succenssfully'];
+           $data['messages'][] = ['status'=>true, 'text'=>'Wrote file '.$filename.' successfully'];
 
         }  catch(Exception $e) {
 

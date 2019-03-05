@@ -25,15 +25,27 @@ class LoadConfig
 
         $config = $files->loadConfigFile();
 
-        $data = self::splitConfigFile($config);
-
-        return  $files->writeConfigFile($files->generateFilename(), $data);
+        return self::parseConfig($config);
 
     }
 
     public static function parseConfig($config) {
 
-        return $config['json'] ? self::splitConfigFile($config) : null;
+        return $config['json'] ? self::parseJsonConfigFile($config) : self::parseTextConfigFile($config);
+
+    }
+
+    public static function parseJsonConfigFile($config) {
+
+        $data = [
+            //'config'   => [],
+            'rss_feed' => RSSFeed::fetchRSSFeed(),
+            'messages' => $config['messages'],
+            'sections' => json_decode($config['file'])
+        ];
+
+        return $data;
+
 
     }
 
@@ -41,14 +53,16 @@ class LoadConfig
      * @param $file
      * @return array
      */
-    public static function splitConfigFile($file ) {
+    public static function parseTextConfigFile($config ) {
 
-        $sections = explode('## ', $file['file']);
+        $files = new Files();
 
-        $output = [
+        $sections = explode('## ', $config['file']);
+
+        $data = [
             //'config'   => [],
             'rss_feed' => RSSFeed::fetchRSSFeed(),
-            'messages' => $file['messages'],
+            'messages' => $config['messages'],
             //'sections' => []
         ];
 
@@ -64,7 +78,7 @@ class LoadConfig
 
             if( strlen( $section_title ) > 1  ) {
 
-                $output['sections'][] = [
+                $data['sections'][] = [
                     'section_title' => self::formatTitle($section_title),
                     'content' => self::formatContent($section_title, $section_content),
                 ];
@@ -74,7 +88,7 @@ class LoadConfig
 
         }
 
-        return array_filter($output);
+        return  $files->writeConfigFile($files->generateFilename(), $data);
 
     }
 
