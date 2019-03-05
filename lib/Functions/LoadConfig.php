@@ -21,11 +21,19 @@ class LoadConfig
      */
     public static function init() {
 
-        $loadFile = new Files();
+        $files = new Files();
 
-        $file = $loadFile->loadConfigFile();
+        $config = $files->loadConfigFile();
 
-        return self::splitConfigFile($file);
+        $data = self::splitConfigFile($config);
+
+        return  $files->writeConfigFile($files->generateFilename(), $data);
+
+    }
+
+    public static function parseConfig($config) {
+
+        return $config['json'] ? self::splitConfigFile($config) : null;
 
     }
 
@@ -44,7 +52,6 @@ class LoadConfig
             //'sections' => []
         ];
 
-        $i = 1;
 
         foreach($sections as $section) {
 
@@ -57,12 +64,11 @@ class LoadConfig
 
             if( strlen( $section_title ) > 1  ) {
 
-                $output['sections'][$i] = [
+                $output['sections'][] = [
                     'section_title' => self::formatTitle($section_title),
                     'content' => self::formatContent($section_title, $section_content),
                 ];
 
-                $i++;
 
             }
 
@@ -100,8 +106,7 @@ class LoadConfig
     public static function splitStanzas($content) {
 
         $stanzas = explode('# ', $content);
-        //$output = [];
-        $i = 1;
+        $output = [];
 
         foreach($stanzas as $stanza) {
 
@@ -114,12 +119,11 @@ class LoadConfig
 
             if( strlen($stanza_title) > 1 ) {
 
-                $output[$i] = [
+                $output[] = [
                     'stanza_title' => $stanza_title,
                     'stanza_body' => trim($stanza_content)
                 ];
 
-                $i++;
 
             }
 

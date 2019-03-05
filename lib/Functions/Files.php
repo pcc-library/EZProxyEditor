@@ -46,17 +46,41 @@ class Files
 
             $messages['status'] = false;
             $messages['text'] = "Custom config.txt file not found. Creating new one from master.";
-            $filename = PCCEPEPATH."config.master.txt";
+            $filename = PCCEPEPATH."/src/data/config.master.txt";
+            $JSON = false;
 
         } else {
             $messages['status'] = true;
             $messages['text'] = "Found ".$filename;
+            $JSON = true;
 
         }
 
         $file = file_get_contents($filename);
 
-        return ['file' => $file, 'messages' => $messages];
+        return ['file' => $file, 'messages' => [$messages], 'json' => $JSON];
+
+    }
+
+    public function writeConfigFile($filename, $data) {
+
+        try {
+            file_put_contents($filename, json_encode($data['sections'], JSON_PRETTY_PRINT));
+
+           $data['messages'][] = ['status'=>true, 'text'=>'Wrote file '.$filename.' succenssfully'];
+
+        }  catch(Exception $e) {
+
+           $data['messages'][] = ['status'=>false, 'text'=>'Couldn\'t write file '.$filename];
+
+        }
+
+        return $data;
+    }
+
+    public function generateFilename() {
+
+        return 'config_'.date('mdY').'.json';
 
     }
 
