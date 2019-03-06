@@ -35,6 +35,24 @@ function init_buttons() {
 
 }
 
+function list_item_template(clickedBtnID,text) {
+
+    return "<li data-id=\""+clickedBtnID+"\" class=\"font-weight-bold\">"+text+"</li>";
+
+}
+
+function create_list_item(clickedBtnID, text) {
+
+    var target = $('#edited_stanzas'),
+        item = target.find('*[data-id="'+clickedBtnID+'"]');
+
+    if(!item.length) {
+
+        target.append(list_item_template(clickedBtnID,text));
+
+    }
+}
+
 function edit_data(clickedBtnID) {
 
     var stanza_title = $('#'+clickedBtnID+' input.stanza_title').val().trim(),
@@ -57,12 +75,19 @@ function update_stanza() {
     var target_id = $('#origin_id').val(),
         stanza_title = $('#stanza_title').val(),
         stanza_body = $('#stanza_body').val(),
-        target = $('#'+target_id);
+        target = $('#'+target_id),
+        status = $('.sidebar.right .card.edited');
 
+    status.removeClass('hide');
     target.children('a').text(stanza_title);
     target.children('.stanza_title').val(stanza_title);
     target.children('.stanza_body').val(stanza_body);
     target.addClass('updated');
+    target.parents('.bd-toc-item').find('h5').addClass('updated');
+
+    create_list_item(target_id,stanza_title);
+
+    disable_buttons();
 
 }
 
@@ -80,7 +105,12 @@ function revert_editor() {
 
 function disable_buttons() {
 
+    $('#stanza_title').blur();
+
+    $('#stanza_body').blur();
+
     $('#revert_btn').attr('disabled');
+
     $('#save_btn').attr('disabled');
 
 }
