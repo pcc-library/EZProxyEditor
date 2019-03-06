@@ -45,11 +45,12 @@ class Files
         if(!$filename) {
 
             $messages['status'] = false;
-            $messages['text'] = "Custom config.txt file not found. Creating new one from master.";
+            $messages['text'] = "Custom config file not found. Creating new one from master.";
             $filename = PCCEPEPATH."/src/data/config.master.txt";
             $JSON = false;
 
         } else {
+
             $messages['status'] = true;
             $messages['text'] = "Found ".basename($filename);
             $JSON = true;

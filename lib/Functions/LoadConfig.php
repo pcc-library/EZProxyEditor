@@ -38,8 +38,8 @@ class LoadConfig
     public static function parseJsonConfigFile($config) {
 
         $data = [
-            //'config'   => [],
-            'rss_feed' => RSSFeed::fetchRSSFeed(),
+             'config'   => ['json' => $config['json']],
+            // 'rss_feed' => RSSFeed::fetchRSSFeed(),
             'messages' => $config['messages'],
             'sections' => json_decode($config['file'])
         ];
@@ -60,8 +60,8 @@ class LoadConfig
         $sections = explode('## ', $config['file']);
 
         $data = [
-            //'config'   => [],
-            'rss_feed' => RSSFeed::fetchRSSFeed(),
+            'config'   => ['json' => $config['json']],
+            //'rss_feed' => RSSFeed::fetchRSSFeed(),
             'messages' => $config['messages'],
             //'sections' => []
         ];

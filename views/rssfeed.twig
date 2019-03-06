@@ -1,0 +1,28 @@
+{% extends 'card.twig' %}
+
+{% block cardtitle %}
+EZproxy RSS
+{% endblock %}
+
+{% block cardsubtitle %}
+{{ rss_feed.channel.pubDate | date("F jS \\a\\t g:ia")}}
+{% endblock %}
+
+{% block cardbody %}
+
+<p class="card-text">Recent additions and changes to database specific configuration instructions, from OCLC RSS Feed.</p>
+
+<ul class="list-unstyled">
+
+    {% for item in rss_feed.channel.item %}
+
+        <li><a href="{{ item.link }}" target="_blank">{{ item.title }}</a> <span class="text-muted date">{{ item.pubDate | date('m-d-Y g:ia') }}</span></li>
+
+    {% endfor %}
+
+</ul>
+
+<a target="_blank" href="https://help.oclc.org/Library_Management/EZproxy" class="card-link">EZproxy Documentation</a><br/>
+<a target="_blank" href="https://help.oclc.org/Library_Management/EZproxy/Database_stanzas/000_Database_stanzas_recent" class="card-link">Most Recent Stanzas</a>
+
+{% endblock %}

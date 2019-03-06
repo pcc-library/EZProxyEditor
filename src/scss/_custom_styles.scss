@@ -81,6 +81,14 @@
 
         }
 
+        &.updated {
+
+          a {
+            color: $success;
+          }
+
+        }
+
         a {
           padding: .5em;
           border-bottom: 1px solid $gray-400;
