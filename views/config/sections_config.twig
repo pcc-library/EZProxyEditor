@@ -1,17 +1,9 @@
 {% for section in sections %}
+## Start {{ section.section_title | trim }}
 
-    ## Start {{ section.section_title | trim }}
+{% for stanza in section.content %}
+# {{ stanza.stanza_title | trim }}
+{{ stanza.stanza_body | trim }}
 
-    {% for stanza in section.content %}
-
-        {% if stanza.stanza_title %}
-
-            # {{ stanza.stanza_title | trim }}
-
-            {{ stanza.stanza_body | trim }}
-
-        {% endif %}
-
-    {% endfor %}
-
+{% endfor %}
 {% endfor %}
