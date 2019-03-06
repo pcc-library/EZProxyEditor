@@ -6,15 +6,15 @@ require __DIR__ . '/vendor/autoload.php';
 
 define( 'PCCEPEPATH', __DIR__.'/' );
 
-use PCC_EPE\Functions\LoadConfig;
+use PCC_EPE\Init\InitializeEditor;
 use PCC_EPE\Frontend\RenderUI;
 use PCC_EPE\Functions\RSSFeed;
 
-$data = LoadConfig::init();
+$data = InitializeEditor::init();
 
 $data['rss_feed'] = RSSFeed::fetchRSSFeed();
 
-$preview = $_GET['preview'];
+$preview = $_REQUEST['preview'];
 
 echo RenderUI::renderSections($data,$preview);
 

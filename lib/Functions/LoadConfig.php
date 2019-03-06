@@ -16,18 +16,6 @@ namespace PCC_EPE\Functions;
 class LoadConfig
 {
 
-    /**
-     * @return array
-     */
-    public static function init() {
-
-        $files = new Files();
-
-        $config = $files->loadConfigFile();
-
-        return self::parseConfig($config);
-
-    }
 
     public static function parseConfig($config) {
 
