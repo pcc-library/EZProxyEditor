@@ -44,8 +44,12 @@
           display: inline-block;
         }
 
-        &.updated {
-          color: $gray-900 !important;
+        &.updated::after {
+          content: '\2713';
+          margin-left: 5px;
+          color: $success;
+          width: 16px;
+          float: right;
         }
 
       }
