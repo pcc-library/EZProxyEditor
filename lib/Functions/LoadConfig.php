@@ -8,8 +8,6 @@
 
 namespace PCC_EPE\Functions;
 
-use PCC_EPE\Functions\Utilities;
-
 /**
  * Class LoadConfig
  * @package PCC_EPE\Functions

@@ -37,7 +37,7 @@ function init_buttons() {
 
 function list_item_template(clickedBtnID,text) {
 
-    return "<li data-id=\""+clickedBtnID+"\" class=\"font-weight-bold\">"+text+"</li>";
+    return "<li class=\"text-success\" data-id=\""+clickedBtnID+"\" class=\"font-weight-bold\">"+text+"</li>";
 
 }
 
@@ -51,6 +51,8 @@ function create_list_item(clickedBtnID, text) {
         target.append(list_item_template(clickedBtnID,text));
 
     }
+
+    return true;
 }
 
 function edit_data(clickedBtnID) {
@@ -87,7 +89,10 @@ function update_stanza() {
 
     create_list_item(target_id,stanza_title);
 
-    disable_buttons();
+    enable_update_button();
+
+
+    //disable_buttons();
 
 }
 
@@ -120,6 +125,12 @@ function enable_buttons() {
     $('#revert_btn').removeAttr('disabled');
     $('#save_btn').removeAttr('disabled');
     
+}
+
+function enable_update_button() {
+
+    $('button#update').removeAttr('disabled');
+
 }
 
 
