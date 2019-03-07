@@ -10,16 +10,14 @@ use PCC_EPE\Init\InitializeEditor;
 use PCC_EPE\Frontend\RenderUI;
 use PCC_EPE\Functions\RSSFeed;
 
-$data = InitializeEditor::init();
+$post_data = $_REQUEST['section'];
+
+$data = InitializeEditor::init($post_data);
 
 $data['rss_feed'] = RSSFeed::fetchRSSFeed();
 
-$preview = $_REQUEST['preview'];
-
-echo RenderUI::renderSections($data,$preview);
-
-//echo "<pre>".print_r($data,true)."</pre>";
+echo RenderUI::renderSections($data,$post_data['preview']);
 
 //if($_POST) {
-//echo '<pre>'.print_r(json_encode($data, JSON_PRETTY_PRINT),true).'</pre>';
+echo '<pre>'.print_r(json_encode($data, JSON_PRETTY_PRINT),true).'</pre>';
 //};

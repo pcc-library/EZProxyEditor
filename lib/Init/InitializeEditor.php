@@ -17,18 +17,26 @@ class InitializeEditor
     /**
      * @return array
      */
-    public static function init() {
+    public static function init($post_data) {
 
         $files = new Files();
 
-        $config = $files->loadConfigFile();
+        if($post_data) {
 
-        return LoadConfig::parseConfig($config);
+            $config = LoadConfig::parsePostData($post_data);
+
+        } else {
+
+            $config = $files->loadConfigFile();
+
+        }
+
+      return LoadConfig::parseConfig($config);
+
 
     }
 
     public static function loadEditorConfig() {
-
 
 
     }

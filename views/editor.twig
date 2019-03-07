@@ -12,18 +12,19 @@
 
 {% endblock %}
 
+{% block messages %}
+
+    {% for message in messages %}
+
+        {% include 'messages.twig' with { 'status': message[0], 'text': message[1]} %}
+
+    {% endfor %}
+
+{% endblock %}
+
 {% block rightcol %}
 
     {% include 'rightcol.twig' %}
 
 {% endblock %}
 
-{% block messages %}
-
-    {% for message in messages %}
-
-        {% include 'messages.twig' with { 'status': message.status, 'text': message.text } %}
-
-    {% endfor %}
-
-{% endblock %}

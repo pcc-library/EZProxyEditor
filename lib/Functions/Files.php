@@ -9,6 +9,7 @@
 namespace PCC_EPE\Functions;
 
 use Exception;
+use PCC_EPE\Functions\Utilities;
 
 /**
  * Class Files
@@ -47,19 +48,26 @@ class Files
             $messages['status'] = false;
             $messages['text'] = "Custom config file not found. Creating new one from master.";
             $filename = PCCEPEPATH."/src/data/config.master.txt";
-            $JSON = false;
+            $source = 'text';
 
         } else {
 
             $messages['status'] = true;
             $messages['text'] = "Found ".basename($filename);
-            $JSON = true;
+            $source = 'json';
 
         }
 
         $file = file_get_contents($filename);
 
-        return ['file' => $file, 'messages' => [$messages], 'json' => $JSON];
+        $data = [
+            'file' => $file,
+            'config' => [ 'source' => $source ]
+            ];
+
+        $data['messages'][] = Utilities::formatMessage($messages['status'], $messages['text']);
+
+        return $data;
 
     }
 
@@ -68,11 +76,12 @@ class Files
         try {
             file_put_contents($filename, json_encode($data['sections'], JSON_PRETTY_PRINT));
 
-           $data['messages'][] = ['status'=>true, 'text'=>'Wrote file '.basename($filename).' successfully'];
+           $data['messages'][] = Utilities::formatMessage(true,"Wrote file ".basename($filename)." successfully");
+
 
         }  catch(Exception $e) {
 
-           $data['messages'][] = ['status'=>false, 'text'=>'Couldn\'t write file '.basename($filename)];
+           $data['messages'][] = Utilities::formatMessage(false, "Couldn\'t write file ".basename($filename));
 
         }
 

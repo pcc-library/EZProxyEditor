@@ -8,6 +8,8 @@
 
 namespace PCC_EPE\Functions;
 
+use PCC_EPE\Functions\Utilities;
+
 /**
  * Class LoadConfig
  * @package PCC_EPE\Functions
@@ -19,23 +21,57 @@ class LoadConfig
 
     public static function parseConfig($config) {
 
-        return $config['json'] ? self::parseJsonConfigFile($config) : self::parseTextConfigFile($config);
+
+        switch ($config['config']['source']) {
+
+            case 'json':
+            return self::parseJsonConfigFile($config);
+            break;
+
+            case 'post':
+            return $config;
+            break;
+
+            case 'text':
+            return self::parseTextConfigFile($config);
+            break;
+        }
+
+        return $config;
+
+    }
+
+    public static function parsePostData($config) {
+
+            $data = [
+                'config'   => [
+                    'source' => 'post'
+                ],
+                'sections' => $config
+            ];
+
+            $data['messages'][] = Utilities::formatMessage(true,'Config file updated.');
+
+            return $data;
 
     }
 
     public static function parseJsonConfigFile($config) {
 
         $data = [
-             'config'   => ['json' => $config['json']],
-            // 'rss_feed' => RSSFeed::fetchRSSFeed(),
+            'config'   => [
+                'source' => $config['config']['source']
+            ],
+            //'rss_feed' => RSSFeed::fetchRSSFeed(),
             'messages' => $config['messages'],
             'sections' => json_decode($config['file'])
         ];
 
         return $data;
 
-
     }
+
+
 
     /**
      * @param $file
@@ -46,14 +82,6 @@ class LoadConfig
         $files = new Files();
 
         $sections = explode('## ', $config['file']);
-
-        $data = [
-            'config'   => ['json' => $config['json']],
-            //'rss_feed' => RSSFeed::fetchRSSFeed(),
-            'messages' => $config['messages'],
-            //'sections' => []
-        ];
-
 
         foreach($sections as $section) {
 
@@ -66,17 +94,16 @@ class LoadConfig
 
             if( strlen( $section_title ) > 1  ) {
 
-                $data['sections'][] = [
+                $config['sections'][] = [
                     'section_title' => self::formatTitle($section_title),
                     'content' => self::formatContent($section_title, $section_content),
                 ];
-
 
             }
 
         }
 
-        return  $files->writeConfigFile($files->generateFilename(), $data);
+        return $files->writeConfigFile($files->generateFilename(), $config);
 
     }
 
@@ -100,6 +127,7 @@ class LoadConfig
         return self::splitStanzas($content);
 
     }
+
 
     /**
      * @param $content
