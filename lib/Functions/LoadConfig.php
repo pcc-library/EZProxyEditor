@@ -43,16 +43,18 @@ class LoadConfig
 
     public static function parsePostData($config) {
 
-            $data = [
+        $files = new Files();
+
+        $data = [
                 'config'   => [
                     'source' => 'post'
                 ],
                 'sections' => $config
             ];
 
-            $data['messages'][] = Utilities::formatMessage(true,'Config file updated.');
+        $data['messages'][] = Utilities::formatMessage(true,'Configuration updated.');
 
-            return $data;
+        return $files->writeConfigFile($files->generateFilename(), $data);
 
     }
 
