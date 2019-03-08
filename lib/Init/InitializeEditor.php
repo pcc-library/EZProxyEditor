@@ -23,10 +23,6 @@ class InitializeEditor
 
     }
 
-    public static function initializeEditor() {
-
-
-    }
 
     public static function getDataOnLoad($post_data) {
 

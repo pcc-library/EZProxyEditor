@@ -27,7 +27,7 @@ class Files
      */
     public function findConfigFile($pattern = 'config_*') {
 
-        $files = glob(EZPEPATH.$pattern);
+        $files = glob(EZPEPATH.'../'.$pattern);
         $files = array_combine($files, array_map('filectime', $files));
         arsort($files);
 
@@ -74,7 +74,10 @@ class Files
     public function writeConfigFile($filename, $data) {
 
         try {
-            file_put_contents($filename, json_encode($data['sections'], JSON_PRETTY_PRINT));
+
+            $filecontent = Formatters::updateDate($data['sections']);
+
+            file_put_contents($filename, json_encode($filecontent, JSON_PRETTY_PRINT));
 
            $data['messages'][] = Formatters::formatMessage(true,"Wrote file ".basename($filename)." successfully");
 

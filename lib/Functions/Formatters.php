@@ -82,5 +82,17 @@ class Formatters
 
     }
 
+    public static function updateDate($data) {
+
+        $documentation = $data[0]['content'][0]['stanza_title'];
+
+        $date = date('m/d/Y');
+
+        $data[0]['content'][0]['stanza_title'] = 'Updated '.$date;
+
+        return $data;
+
+    }
+
 
 }
