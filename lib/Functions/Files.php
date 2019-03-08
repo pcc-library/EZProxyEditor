@@ -9,7 +9,7 @@
 namespace PCC_EPE\Functions;
 
 use Exception;
-use PCC_EPE\Functions\Utilities;
+use PCC_EPE\Functions\Formatters;
 
 /**
  * Class Files
@@ -65,7 +65,7 @@ class Files
             'config' => [ 'source' => $source ]
             ];
 
-        $data['messages'][] = Utilities::formatMessage($messages['status'], $messages['text']);
+        $data['messages'][] = Formatters::formatMessage($messages['status'], $messages['text']);
 
         return $data;
 
@@ -76,12 +76,12 @@ class Files
         try {
             file_put_contents($filename, json_encode($data['sections'], JSON_PRETTY_PRINT));
 
-           $data['messages'][] = Utilities::formatMessage(true,"Wrote file ".basename($filename)." successfully");
+           $data['messages'][] = Formatters::formatMessage(true,"Wrote file ".basename($filename)." successfully");
 
 
         }  catch(Exception $e) {
 
-           $data['messages'][] = Utilities::formatMessage(false, "Couldn\'t write file ".basename($filename));
+           $data['messages'][] = Formatters::formatMessage(false, "Couldn\'t write file ".basename($filename));
 
         }
 

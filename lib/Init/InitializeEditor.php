@@ -9,7 +9,7 @@
 namespace PCC_EPE\Init;
 
 use PCC_EPE\Functions\Files;
-use PCC_EPE\Functions\LoadConfig;
+use PCC_EPE\Functions\Parsers;
 
 class InitializeEditor
 {
@@ -23,7 +23,7 @@ class InitializeEditor
 
         if($post_data) {
 
-            $config = LoadConfig::parsePostData($post_data);
+            $config = Parsers::parsePostData($post_data);
 
         } else {
 
@@ -31,7 +31,7 @@ class InitializeEditor
 
         }
 
-      return LoadConfig::parseConfig($config);
+      return Parsers::parseConfig($config);
 
 
     }

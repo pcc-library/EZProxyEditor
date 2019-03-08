@@ -9,11 +9,11 @@
 namespace PCC_EPE\Functions;
 
 /**
- * Class LoadConfig
+ * Class Parsers
  * @package PCC_EPE\Functions
  * Initialize the editor by loading config file, fetch OCLC RSS, populate content array for twig to render.
  */
-class LoadConfig
+class Parsers
 {
 
 
@@ -50,7 +50,7 @@ class LoadConfig
                 'sections' => $config
             ];
 
-        $data['messages'][] = Utilities::formatMessage(true,'Configuration updated.');
+        $data['messages'][] = Formatters::formatMessage(true,'Configuration updated.');
 
         return $files->writeConfigFile($files->generateFilename(), $data);
 
