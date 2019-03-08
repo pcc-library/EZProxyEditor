@@ -1,6 +1,0 @@
-{
-  "ezproxy_admin_url":"",
-  "admin_user": "",
-  "password": "",
-  "upload_url": ""
-}

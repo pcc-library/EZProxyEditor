@@ -18,7 +18,7 @@ class RenderUI
     public static function renderSections($data,$preview) {
 
     // Specify our Twig templates location
-        $loader = new Twig_Loader_Filesystem(PCCEPEPATH .'/views');
+        $loader = new Twig_Loader_Filesystem(EZPEPATH .'../views');
 
     // Instantiate our Twig
         $twig = new Twig_Environment($loader, array(

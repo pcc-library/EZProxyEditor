@@ -2,9 +2,9 @@
 
 namespace PCC_EPE;
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/editor-config/ezpe-config.php';
 
-define( 'PCCEPEPATH', __DIR__.'/' );
+require __DIR__ . '/vendor/autoload.php';
 
 use PCC_EPE\Init\InitializeEditor;
 use PCC_EPE\Frontend\RenderUI;

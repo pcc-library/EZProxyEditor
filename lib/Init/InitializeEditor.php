@@ -19,6 +19,17 @@ class InitializeEditor
      */
     public static function init($post_data) {
 
+       return self::getDataOnLoad($post_data);
+
+    }
+
+    public static function initializeEditor() {
+
+
+    }
+
+    public static function getDataOnLoad($post_data) {
+
         $files = new Files();
 
         if($post_data) {
@@ -31,13 +42,7 @@ class InitializeEditor
 
         }
 
-      return Parsers::parseConfig($config);
-
-
-    }
-
-    public static function loadEditorConfig() {
-
+        return Parsers::parseConfig($config);
 
     }
 

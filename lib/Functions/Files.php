@@ -27,7 +27,7 @@ class Files
      */
     public function findConfigFile($pattern = 'config_*') {
 
-        $files = glob(PCCEPEPATH.$pattern);
+        $files = glob(EZPEPATH.$pattern);
         $files = array_combine($files, array_map('filectime', $files));
         arsort($files);
 
@@ -47,7 +47,7 @@ class Files
 
             $messages['status'] = false;
             $messages['text'] = "Custom config file not found. Creating new one from master.";
-            $filename = PCCEPEPATH."/src/data/config.master.txt";
+            $filename = EZPEPATH."/config.master.txt";
             $source = 'text';
 
         } else {
