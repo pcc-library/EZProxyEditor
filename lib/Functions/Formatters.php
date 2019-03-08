@@ -84,9 +84,9 @@ class Formatters
 
     public static function updateDate($data) {
 
-        $documentation = $data[0]['content'][0]['stanza_title'];
+        date_default_timezone_set('America/Los_Angeles');
 
-        $date = date('m/d/Y');
+        $date = date('m/d/Y h:i:s A');
 
         $data[0]['content'][0]['stanza_title'] = 'Updated '.$date;
 
