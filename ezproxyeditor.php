@@ -2,22 +2,40 @@
 
 namespace PCC_EPE;
 
-require __DIR__ . '/editor-config/ezpe-config.php';
-
 require __DIR__ . '/vendor/autoload.php';
 
 use PCC_EPE\Init\InitializeEditor;
-use PCC_EPE\Frontend\RenderUI;
 use PCC_EPE\Functions\RSSFeed;
+use PCC_EPE\Frontend\Routes;
+use PCC_EPE\Frontend\Router;
+use PCC_EPE\Frontend\RenderUI;
 
+define( 'EZPEPATH', __DIR__.'/' );
+define( 'EZPEWRITEABLE', $_SERVER['DOCUMENT_ROOT'].'/library/wp-content/uploads/ezpe/');
+
+$action = $_SERVER['REQUEST_URI'];
 $post_data = $_REQUEST['section'];
+
+$routes = new Routes();
+$router = new Router();
+$renderUI = new RenderUI();
 
 $data = InitializeEditor::init($post_data);
 
 $data['rss_feed'] = RSSFeed::fetchRSSFeed();
 
-echo RenderUI::renderSections($data,$_REQUEST['preview']);
+$data['url_base'] = '/library/EZProxyEditor/';
+
+$routes->setRoute('/library/EZProxyEditor/', 'editor');
+$routes->setRoute('/library/EZProxyEditor/preview', 'preview');
+
+//$router->dispatch($action, $data);
+
+$callback = $routes->getRoute($action);
+
+echo $renderUI->renderSections($callback, $data);
+
 
 //if($_POST) {
-//echo '<pre>'.print_r($_SERVER,true).'</pre>';
+//echo '<pre>'.print_r($action,true).'</pre>';
 //};

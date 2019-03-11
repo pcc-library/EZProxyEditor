@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark d-flex justify-content-between">
-    <a class="navbar-brand" href="#">EZproxy Editor</a>
+    <a class="navbar-brand" href="{{ url_base }}">EZproxy Editor</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -10,8 +10,8 @@
                     Options
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="?edit=">Edit EZProxy Config File</a>
-                    <a class="dropdown-item" href="?preview=1">Preview EZProxy Config File</a>
+                    <a class="dropdown-item" href="{{ url_base }}">Edit EZProxy Config File</a>
+                    <a class="dropdown-item" href="{{ url_base }}preview">Preview EZProxy Config File</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Upload to EZproxy server</a>
                     <a class="dropdown-item" href="#">Reboot EZproxy server</a>

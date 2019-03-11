@@ -23,7 +23,6 @@ class InitializeEditor
 
     }
 
-
     public static function getDataOnLoad($post_data) {
 
         $files = new Files();
