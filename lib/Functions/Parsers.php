@@ -30,9 +30,9 @@ class Parsers
             return $config;
             break;
 
-            case 'text':
-            return self::parseTextConfigFile($config);
-            break;
+//            case 'text':
+//            return self::parseTextConfigFile($config);
+//            break;
         }
 
         return $config;
@@ -103,7 +103,7 @@ class Parsers
 
         }
 
-        return $files->writeConfigFile($files->generateFilename(), $config);
+        return $config;
 
     }
 

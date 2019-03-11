@@ -9,7 +9,6 @@
 namespace PCC_EPE\Functions;
 
 use Exception;
-use PCC_EPE\Functions\Formatters;
 
 /**
  * Class Files
@@ -27,7 +26,7 @@ class Files
      */
     public function findConfigFile($pattern = 'config_*') {
 
-        $files = glob(EZPEPATH.'../'.$pattern);
+        $files = glob(EZPEWRITEABLE.$pattern);
         $files = array_combine($files, array_map('filectime', $files));
         arsort($files);
 
@@ -45,10 +44,7 @@ class Files
 
         if(!$filename) {
 
-            $messages['status'] = false;
-            $messages['text'] = "Custom config file not found. Creating new one from master.";
-            $filename = EZPEPATH."/config.master.txt";
-            $source = 'text';
+          $data = $this->generateNewConfig();
 
         } else {
 
@@ -56,18 +52,42 @@ class Files
             $messages['text'] = "Found ".basename($filename);
             $source = 'json';
 
+            $file = file_get_contents($filename);
+
+            $data = [
+                'file' => $file,
+                'config' => [ 'source' => $source ]
+            ];
+
+            $data['messages'][] = Formatters::formatMessage($messages['status'], $messages['text']);
+
         }
+
+        return $data;
+
+    }
+
+    public function generateNewConfig() {
+
+        $messages['status'] = false;
+        $messages['text'] = "Custom config file not found. Creating new one from master.";
+        $filename = EZPEPATH."/config.master.txt";
+        $source = 'text';
 
         $file = file_get_contents($filename);
 
         $data = [
             'file' => $file,
             'config' => [ 'source' => $source ]
-            ];
+        ];
 
         $data['messages'][] = Formatters::formatMessage($messages['status'], $messages['text']);
 
-        return $data;
+        $config = Parsers::parseTextConfigFile($data);
+
+        $output = $this->writeConfigFile($this->generateFilename(), $config);
+
+        return $output;
 
     }
 
@@ -77,7 +97,7 @@ class Files
 
             $filecontent = Formatters::updateDate($data['sections']);
 
-            file_put_contents($filename, json_encode($filecontent, JSON_PRETTY_PRINT));
+            file_put_contents(EZPEWRITEABLE.$filename, json_encode($filecontent, JSON_PRETTY_PRINT));
 
            $data['messages'][] = Formatters::formatMessage(true,"Wrote file ".basename($filename)." successfully");
 
@@ -87,6 +107,8 @@ class Files
            $data['messages'][] = Formatters::formatMessage(false, "Couldn\'t write file ".basename($filename));
 
         }
+
+        $data['sections'] = $filecontent;
 
         return $data;
     }

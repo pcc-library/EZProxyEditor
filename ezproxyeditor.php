@@ -19,5 +19,5 @@ $data['rss_feed'] = RSSFeed::fetchRSSFeed();
 echo RenderUI::renderSections($data,$_REQUEST['preview']);
 
 //if($_POST) {
-//echo '<pre>'.print_r($data,true).'</pre>';
+//echo '<pre>'.print_r($_SERVER,true).'</pre>';
 //};
