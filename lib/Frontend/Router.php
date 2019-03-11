@@ -11,6 +11,9 @@ namespace PCC_EPE\Frontend;
 class Router
 {
 
+    public $routes;
+    public $renderUI;
+
     /**
      * Holds the registered routes
      *
@@ -23,28 +26,26 @@ class Router
      * @param $action string
      * @param $route string
      */
-    function route($route, $action)
+    public function route($route, $action)
     {
-        $routes = new Routes();
-        $routes->setRoute($route, $action);
+        $this->routes = new Routes();
+        $this->routes->setRoute($route, $action);
     }
 
     /**
      * Dispatch route
-     * @param $action
+     * @param $action | string
      * @param $data
      * @return mixed
      */
-    function dispatch($action, $data)
+    public function dispatch($action, $data)
     {
-        $routes = new Routes();
-        $renderUI = new RenderUI();
+        $this->routes = new Routes();
+        $this->renderUI = new RenderUI();
 
-        $callback = $routes->getRoute($action);
+        $callback = $this->routes->getRoute($action);
 
-        echo $callback;
-
-        //echo $renderUI->renderSections($callback, $data);
+        return $action; //$this->renderUI->renderSections($callback, $data);
 
     }
 

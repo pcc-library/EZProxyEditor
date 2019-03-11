@@ -18,24 +18,21 @@ $post_data = $_REQUEST['section'];
 
 $routes = new Routes();
 $router = new Router();
-$renderUI = new RenderUI();
+//$renderUI = new RenderUI();
+
+
+$routes->setRoute('/library/ezproxyeditor/', 'editor');
+$routes->setRoute('/library/ezproxyeditor/preview', 'preview');
+
 
 $data = InitializeEditor::init($post_data);
 
 $data['rss_feed'] = RSSFeed::fetchRSSFeed();
 
-$data['url_base'] = '/library/EZProxyEditor/';
+$data['url_base'] = '/library/ezproxyeditor/';
 
-$routes->setRoute('/library/EZProxyEditor/', 'editor');
-$routes->setRoute('/library/EZProxyEditor/preview', 'preview');
-
-//$router->dispatch($action, $data);
-
-$callback = $routes->getRoute($action);
-
-echo $renderUI->renderSections($callback, $data);
-
+echo $router->dispatch($action,$data);
 
 //if($_POST) {
-//echo '<pre>'.print_r($action,true).'</pre>';
+// echo '<pre>'.print_r($action,true).'</pre>';
 //};
