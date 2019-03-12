@@ -6,41 +6,46 @@ require __DIR__ . '/vendor/autoload.php';
 
 use PCC_EPE\Init\InitializeEditor;
 use PCC_EPE\Functions\RSSFeed;
-use PCC_EPE\Frontend\Routes;
+//use PCC_EPE\Frontend\Routes;
 use PCC_EPE\Functions\Files;
 use PCC_EPE\Frontend\RenderUI;
+use AltoRouter;
 
 define( 'EZPEPATH', __DIR__.'/' );
 define( 'EZPEWRITEABLE', $_SERVER['DOCUMENT_ROOT'].'/library/wp-content/uploads/ezpe/');
 
-$action = $_SERVER['REQUEST_URI'];
+$baseurl = '/library/ezproxyeditor';
+
+$router = new AltoRouter();
+$router->setBasePath($baseurl);
+
 $post_data = $_REQUEST['section'];
-
-$routes = new Routes();
-$files = new Files();
 $renderUI = new RenderUI();
-
-
-$routes->setRoute('/library/ezproxyeditor/', 'editor');
-$routes->setRoute('/library/ezproxyeditor/preview', 'preview');
-
 
 $data = InitializeEditor::init($post_data);
 
 $data['rss_feed'] = RSSFeed::fetchRSSFeed();
+$data['baseurl'] = $baseurl;
 
-$data['url_base'] = '/library/ezproxyeditor/';
+$router->map( 'GET', '/', function() use ($renderUI, $data) {
+    echo  $renderUI->renderTemplate('editor', $data);
+});
 
-//if($_REQUEST['write']) {
+$router->map( 'GET', '/preview', function() use ($renderUI, $data) {
+    echo $renderUI->renderTemplate('preview', $data);
+});
 
-    $data['messages'][] = $files->writeTextConfig();
+$match = $router->match();
 
-//}
+// call closure or throw 404 status
+if( is_array($match) && is_callable( $match['target'] ) ) {
+    call_user_func_array( $match['target'], $match['params'] );
+} else {
+    // no route was matched
+    echo $renderUI->renderTemplate('404', []);
+}
 
-$callback = $routes->getRoute($action);
-
-echo $renderUI->renderTemplate($callback, $data);
 
 //if($_POST) {
- echo '<pre>'.print_r($data['messages'],true).'</pre>';
+ //echo '<pre>'.print_r($data['messages'],true).'</pre>';
 //};

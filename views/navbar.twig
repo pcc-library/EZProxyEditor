@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark d-flex justify-content-between">
-    <a class="navbar-brand" href="{{ url_base }}">EZproxy Editor</a>
+    <a class="navbar-brand" href="{{ baseurl }}">EZproxy Editor</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -10,12 +10,12 @@
                     Options
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ url_base }}">Edit EZProxy Config File</a>
-                    <a class="dropdown-item" href="{{ url_base }}preview">Preview EZProxy Config File</a>
-                    <a class="dropdown-item" href="{{ url_base }}?write">Write EZProxy Config File</a>
+                    <a class="dropdown-item" href="{{ baseurl }}">Edit EZProxy Config File</a>
+                    <a class="dropdown-item" href="{{ baseurl }}/preview">Preview EZProxy Config File</a>
+                    <a class="dropdown-item" href="{{ baseurl }}#write">Write EZProxy Config File</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Upload to EZproxy server</a>
-                    <a class="dropdown-item" href="#">Reboot EZproxy server</a>
+                    <a class="dropdown-item" href="#upload">Upload to EZproxy server</a>
+                    <a class="dropdown-item" href="#reboot">Reboot EZproxy server</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">EZproxy Admin</a>
                 </div>
@@ -23,7 +23,7 @@
 
         </ul>
         <span class="navbar-text">
-            <i class="fa fa-user-circle-o"></i> Hello Donna Meeds | <a href="#">logout</a>
+            <i class="fa fa-user-circle-o"></i> Hello Donna Meeds | <a href="#">{{ baseurl }}</a>
     </span>
     </div>
 </nav>

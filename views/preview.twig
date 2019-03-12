@@ -1,22 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>EZProxy Config Preview</title>
+{% extends 'base.twig' %}
 
-    <script src="assets/js/app.js"></script>
-    <link rel="stylesheet" type="text/css" href="assets/css/styles.css" />
+{% block title %}EZproxy Config Preview{% endblock %}
 
-</head>
-<body>
-
-{% include 'navbar.twig' %}
-
-<main role="main" class="container-fluid">
-
-<pre>{% include 'config/sections_config.twig' %}</pre>
-
-</main>
-
-</body>
-</html>
+{% block main %}
+    <div class="p-3"><pre>{% include 'config/sections_config.twig' %}</pre></div>
+{% endblock %}

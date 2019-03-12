@@ -1,0 +1,33 @@
+{% extends 'base.twig' %}
+
+{% block main %}
+
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-4 col-xl-3 sidebar left" id="sidebar">
+            <div class="wrapper">
+
+                {% block sidebar %}{% endblock %}
+
+            </div>
+        </div>
+        <div class="col">
+            <div class="wrapper">
+
+                {% block content %}{% endblock %}
+
+            </div>
+        </div>
+
+        <div class="col-12 col-md-4 col-xl-3 sidebar right">
+
+            <div class="wrapper">
+
+                {% block messages %}{% endblock %}
+                {% block rightcol %}{% endblock %}
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

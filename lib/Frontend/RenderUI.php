@@ -8,9 +8,9 @@
 
 namespace PCC_EPE\Frontend;
 
-use \Twig_Loader_Filesystem;
-use \Twig_Environment;
-use \Twig_Extension_Debug;
+use \Twig\Loader\FilesystemLoader;
+use \Twig\Environment;
+use \Twig\Extension\DebugExtension;
 
 class RenderUI
 {
@@ -18,14 +18,14 @@ class RenderUI
     public function renderTemplate($template,$data) {
 
     // Specify our Twig templates location
-        $loader = new Twig_Loader_Filesystem(EZPEPATH .'views');
+        $loader = new FilesystemLoader(EZPEPATH .'views');
 
     // Instantiate our Twig
-        $twig = new Twig_Environment($loader, array(
+        $twig = new Environment($loader, [
             'debug' => true,
+        ]);
 
-        ));
-        $twig->addExtension(new Twig_Extension_Debug());
+        $twig->addExtension(new DebugExtension());
 
         return $twig->render($template.".twig", $data);
 
