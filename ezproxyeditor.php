@@ -6,10 +6,13 @@ require __DIR__ . '/vendor/autoload.php';
 
 use PCC_EPE\Init\InitializeEditor;
 use PCC_EPE\Functions\RSSFeed;
-//use PCC_EPE\Frontend\Routes;
-use PCC_EPE\Functions\Files;
 use PCC_EPE\Frontend\RenderUI;
+use PCC_EPE\Models\Config;
 use AltoRouter;
+
+use \Twig\Loader\FilesystemLoader;
+use \Twig\Environment;
+use \Twig\Extension\DebugExtension;
 
 define( 'EZPEPATH', __DIR__.'/' );
 define( 'EZPEWRITEABLE', $_SERVER['DOCUMENT_ROOT'].'/library/wp-content/uploads/ezpe/');
@@ -18,6 +21,18 @@ $baseurl = '/library/ezproxyeditor';
 
 $router = new AltoRouter();
 $router->setBasePath($baseurl);
+
+// Specify our Twig templates location
+$loader = new FilesystemLoader(EZPEPATH .'views');
+
+// Instantiate our Twig
+$twig = new Environment($loader, [
+    'debug' => true,
+]);
+
+$twig->addExtension(new DebugExtension());
+
+Config::$twig=$twig;
 
 $post_data = $_REQUEST['section'];
 $renderUI = new RenderUI();
@@ -42,6 +57,7 @@ if( is_array($match) && is_callable( $match['target'] ) ) {
     call_user_func_array( $match['target'], $match['params'] );
 } else {
     // no route was matched
+    header("HTTP/1.0 404 Not Found");
     echo $renderUI->renderTemplate('404', []);
 }
 
