@@ -52,7 +52,7 @@ class Parsers
 
         $data['messages'][] = Formatters::formatMessage(true,'Configuration updated.');
 
-        return $files->writeConfigFile($files->generateFilename(), $data);
+        return $files->writeEditorConfigFile($files->generateFilename(), $data);
 
     }
 

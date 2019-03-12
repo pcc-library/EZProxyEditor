@@ -15,7 +15,7 @@ use \Twig_Extension_Debug;
 class RenderUI
 {
 
-    public function renderSections($callback,$data) {
+    public function renderTemplate($template,$data) {
 
     // Specify our Twig templates location
         $loader = new Twig_Loader_Filesystem(EZPEPATH .'views');
@@ -27,7 +27,7 @@ class RenderUI
         ));
         $twig->addExtension(new Twig_Extension_Debug());
 
-        return $twig->render($callback.".twig", $data);
+        return $twig->render($template.".twig", $data);
 
     }
 

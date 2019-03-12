@@ -86,7 +86,7 @@ class Formatters
 
         date_default_timezone_set('America/Los_Angeles');
 
-        $date = date('m/d/Y h:i:s A');
+        $date = date('m/d/y h:i:s A');
 
         $data[0]['content'][0]['stanza_title'] = 'Updated '.$date;
 

@@ -121,10 +121,10 @@ function disable_buttons() {
 }
 
 function enable_buttons() {
-    
+
     $('#revert_btn').removeAttr('disabled');
     $('#save_btn').removeAttr('disabled');
-    
+
 }
 
 function enable_update_button() {
@@ -132,8 +132,6 @@ function enable_update_button() {
     $('button#update').removeAttr('disabled');
 
 }
-
-
 
 $( document ).ready(function() {
 

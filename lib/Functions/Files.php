@@ -9,6 +9,8 @@
 namespace PCC_EPE\Functions;
 
 use Exception;
+use PCC_EPE\Frontend\RenderUI;
+use PCC_EPE\Functions\Parsers;
 
 /**
  * Class Files
@@ -26,7 +28,7 @@ class Files
      */
     public function findConfigFile($pattern = 'config_*') {
 
-        $files = glob(EZPEWRITEABLE.$pattern);
+        $files = glob(EZPEWRITEABLE .$pattern);
         $files = array_combine($files, array_map('filectime', $files));
         arsort($files);
 
@@ -85,13 +87,13 @@ class Files
 
         $config = Parsers::parseTextConfigFile($data);
 
-        $output = $this->writeConfigFile($this->generateFilename(), $config);
+        $output = $this->writeEditorConfigFile($this->generateFilename(), $config);
 
         return $output;
 
     }
 
-    public function writeConfigFile($filename, $data) {
+    public function writeEditorConfigFile($filename, $data) {
 
         try {
 
@@ -111,6 +113,36 @@ class Files
         $data['sections'] = $filecontent;
 
         return $data;
+    }
+
+    public function writeTextConfig() {
+
+        $files = new Files();
+        $render = new RenderUI();
+
+        $file = $files->loadConfigFile();
+
+        $data = Parsers::parseJsonConfigFile($file);
+
+        $filename = 'config.txt';
+
+        $output = $render->renderTemplate("config/sections_config", $data);
+
+        try {
+
+            file_put_contents(EZPEWRITEABLE.$filename, $output);
+
+            $data['messages'] = Formatters::formatMessage(true,"Wrote file ".basename($filename)." successfully");
+
+
+        }  catch(Exception $e) {
+
+            $data['messages'] = Formatters::formatMessage(false, "Couldn\'t write file ".basename($filename));
+
+        }
+
+        return $data['messages'];
+
     }
 
     public function generateFilename() {

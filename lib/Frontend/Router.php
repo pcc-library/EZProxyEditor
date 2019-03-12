@@ -45,7 +45,7 @@ class Router
 
         $callback = $this->routes->getRoute($action);
 
-        return $action; //$this->renderUI->renderSections($callback, $data);
+        return $this->renderUI->renderSections($callback, $data);
 
     }
 
