@@ -22,6 +22,8 @@ class Config
      */
     public static $strSubfolderRoute = "";
 
+    public static $files;
+
     public static $router;
 
 

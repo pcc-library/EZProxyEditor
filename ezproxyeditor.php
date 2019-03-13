@@ -6,6 +6,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 use PCC_EPE\Init\InitializeEditor;
 use PCC_EPE\Functions\RSSFeed;
+use PCC_EPE\Functions\Files;
 use PCC_EPE\Frontend\RenderUI;
 use PCC_EPE\Models\Config;
 use AltoRouter;
@@ -19,6 +20,7 @@ define( 'EZPEWRITEABLE', $_SERVER['DOCUMENT_ROOT'].'/library/wp-content/uploads/
 
 $baseurl = '/library/ezproxyeditor';
 
+$files = new Files();
 $router = new AltoRouter();
 $router->setBasePath($baseurl);
 
@@ -34,21 +36,34 @@ $twig->addExtension(new DebugExtension());
 
 Config::$twig=$twig;
 
+Config::$files=$files;
+
 $post_data = $_REQUEST['section'];
 $renderUI = new RenderUI();
 
 $data = InitializeEditor::init($post_data);
 
-$data['rss_feed'] = RSSFeed::fetchRSSFeed();
+$data['rss_feed'] = []; //RSSFeed::fetchRSSFeed();
 $data['baseurl'] = $baseurl;
 
 $router->map( 'GET', '/', function() use ($renderUI, $data) {
     echo  $renderUI->renderTemplate('editor', $data);
 });
 
+
+$router->map( 'POST', '/', function() use ($renderUI, $data) {
+    echo  $renderUI->renderTemplate('editor', $data);
+});
+
 $router->map( 'GET', '/preview', function() use ($renderUI, $data) {
     echo $renderUI->renderTemplate('preview', $data);
 });
+
+$router->map( 'GET', '/write', function() use ($renderUI, $data, $files) {
+    $data['messages'][] = $files->writeTextConfig();
+    echo $renderUI->renderTemplate('editor', $data);
+});
+
 
 $match = $router->match();
 

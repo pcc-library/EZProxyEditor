@@ -32,5 +32,9 @@ class RouteController
         return Config::$router;
     }
 
+    public function getFileInstance()
+    {
+        return Config::$files;
+    }
 
 }
