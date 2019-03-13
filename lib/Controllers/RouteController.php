@@ -9,6 +9,8 @@
 namespace PCC_EPE\Controllers;
 
 use PCC_EPE\Models\Config;
+use PCC_EPE\Frontend\RenderUI;
+use PCC_EPE\Functions\RSSFeed;
 
 /**
  * Class RouteController
@@ -17,11 +19,52 @@ use PCC_EPE\Models\Config;
 class RouteController
 {
 
+    public function editor() {
+
+        $renderUI = $this->getRenderUIInstance();
+        $data = GetDataController::init();
+        $data['rss_feed'] = RSSFeed::fetchRSSFeed();
+        $data['baseurl'] = BASEURL;
+
+        echo  $renderUI->renderTemplate('editor', $data);
+
+    }
+
+    public function preview() {
+
+        $renderUI = $this->getRenderUIInstance();
+        $data = GetDataController::init();
+        $data['rss_feed'] = RSSFeed::fetchRSSFeed();
+        $data['baseurl'] = BASEURL;
+
+        echo  $renderUI->renderTemplate('preview', $data);
+
+    }
+
+    public function write() {
+
+        $renderUI = $this->getRenderUIInstance();
+        $files = $this->getFileInstance();
+        $data = GetDataController::init();
+        $data['rss_feed'] = RSSFeed::fetchRSSFeed();
+        $data['baseurl'] = BASEURL;
+
+        $data['messages'][] = $files->writeTextConfig();
+
+        echo  $renderUI->renderTemplate('preview', $data);
+
+    }
 
     public function getTwigInstance()
     {
         return Config::$twig;
     }
+
+    public function getRenderUIInstance()
+    {
+        return Config::$renderUI;
+    }
+
     public function getProjectSubFolderPath()
     {
         return Config::$strSubfolderRoute;
@@ -30,6 +73,11 @@ class RouteController
     public function getRouterInstance()
     {
         return Config::$router;
+    }
+
+    public function getPostDataInstance()
+    {
+        return Config::$post_data;
     }
 
     public function getFileInstance()

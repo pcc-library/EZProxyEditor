@@ -6,20 +6,22 @@
  * Time: 14:55
  */
 
-namespace PCC_EPE\Init;
+namespace PCC_EPE\Controllers;
 
 use PCC_EPE\Functions\Files;
 use PCC_EPE\Functions\Parsers;
 
-class InitializeEditor
+class GetDataController
 {
 
     /**
      * @return array
      */
-    public static function init($post_data) {
+    public static function init() {
 
-       return self::getDataOnLoad($post_data);
+       $post_data = new RouteController();
+
+       return self::getDataOnLoad($post_data->getPostDataInstance());
 
     }
 

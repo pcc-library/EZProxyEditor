@@ -1,3 +1,7 @@
-{% include 'edited.twig' %}
+{% for widget in widgets %}
+    {% include widget~'.twig' %}
+{% endfor %}
 
-{% include 'rssfeed.twig' %}
+{#{% include 'edited.twig' %}#}
+
+{#{% include 'rssfeed.twig' %}#}

@@ -26,7 +26,8 @@
 
 {% block rightcol %}
 
-    {% include 'rightcol.twig' %}
+    {% set widgets = ['edited','rssfeed'] %}
+    {% include 'rightcol.twig' with {'widgets': widgets } %}
 
 {% endblock %}
 

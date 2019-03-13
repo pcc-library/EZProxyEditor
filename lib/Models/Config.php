@@ -17,6 +17,8 @@ class Config
      */
     public static $twig;
 
+    public static $renderUI;
+
     /**
      *  Default application folder (in case placing project in subfolder on the shared remote hosting)
      */
@@ -26,5 +28,6 @@ class Config
 
     public static $router;
 
+    public static $post_data;
 
 }
