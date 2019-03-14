@@ -9,8 +9,6 @@
 namespace PCC_EPE\Controllers;
 
 use PCC_EPE\Models\Config;
-use PCC_EPE\Frontend\RenderUI;
-use PCC_EPE\Functions\RSSFeed;
 
 /**
  * Class RouteController
@@ -23,7 +21,7 @@ class RouteController
 
         $renderUI = $this->getRenderUIInstance();
         $data = GetDataController::init();
-        $data['rss_feed'] = RSSFeed::fetchRSSFeed();
+        $data['rss_feed'] = RSSFeed::rssFeed();
         $data['baseurl'] = BASEURL;
 
         echo  $renderUI->renderTemplate('editor', $data);
@@ -34,7 +32,7 @@ class RouteController
 
         $renderUI = $this->getRenderUIInstance();
         $data = GetDataController::init();
-        $data['rss_feed'] = RSSFeed::fetchRSSFeed();
+        $data['rss_feed'] = RSSFeed::rssFeed();
         $data['baseurl'] = BASEURL;
 
         echo  $renderUI->renderTemplate('preview', $data);
@@ -46,7 +44,7 @@ class RouteController
         $renderUI = $this->getRenderUIInstance();
         $files = $this->getFileInstance();
         $data = GetDataController::init();
-        $data['rss_feed'] = RSSFeed::fetchRSSFeed();
+        $data['rss_feed'] = RSSFeed::rssFeed();
         $data['baseurl'] = BASEURL;
 
         $data['messages'][] = $files->writeTextConfig();
