@@ -19,27 +19,23 @@ class RouteController
 
     public function editor() {
 
-        $renderUI = $this->getRenderUIInstance();
-        $data = GetDataController::init();
-        $data['rss_feed'] = RSSFeed::rssFeed();
-        $data['baseurl'] = BASEURL;
-
-        echo  $renderUI->renderTemplate('editor', $data);
+        echo $this->renderPage('editor', false);
 
     }
 
     public function preview() {
 
-        $renderUI = $this->getRenderUIInstance();
-        $data = GetDataController::init();
-        $data['rss_feed'] = RSSFeed::rssFeed();
-        $data['baseurl'] = BASEURL;
-
-        echo  $renderUI->renderTemplate('preview', $data);
+        echo $this->renderPage('editor', false);
 
     }
 
     public function write() {
+
+        echo $this->renderPage('editor', true);
+
+    }
+
+    public function renderPage($pagename, $write) {
 
         $renderUI = $this->getRenderUIInstance();
         $files = $this->getFileInstance();
@@ -47,9 +43,11 @@ class RouteController
         $data['rss_feed'] = RSSFeed::rssFeed();
         $data['baseurl'] = BASEURL;
 
-        $data['messages'][] = $files->writeTextConfig();
+        if($write) {
+            $data['messages'][] = $files->writeTextConfig();
+        }
 
-        echo  $renderUI->renderTemplate('preview', $data);
+        return  $renderUI->renderTemplate($pagename, $data);
 
     }
 
