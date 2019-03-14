@@ -10,8 +10,8 @@ namespace PCC_EPE\Functions;
 
 use Exception;
 use PCC_EPE\Frontend\RenderUI;
-use PCC_EPE\Functions\Parsers;
-
+use PCC_EPE\Controllers\Parsers;
+use PCC_EPE\Controllers\Formatters;
 /**
  * Class Files
  * Read & write config.txt files

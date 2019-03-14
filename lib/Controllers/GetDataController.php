@@ -9,7 +9,6 @@
 namespace PCC_EPE\Controllers;
 
 use PCC_EPE\Functions\Files;
-use PCC_EPE\Functions\Parsers;
 
 class GetDataController
 {

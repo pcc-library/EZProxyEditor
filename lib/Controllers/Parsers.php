@@ -6,7 +6,7 @@
  * Time: 13:56
  */
 
-namespace PCC_EPE\Functions;
+namespace PCC_EPE\Controllers;
 
 /**
  * Class Parsers

@@ -6,7 +6,7 @@
  * Time: 14:03
  */
 
-namespace PCC_EPE\Functions;
+namespace PCC_EPE\Controllers;
 
 
 class Formatters

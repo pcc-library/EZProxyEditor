@@ -25,13 +25,13 @@ class RouteController
 
     public function preview() {
 
-        echo $this->renderPage('editor', false);
+        echo $this->renderPage('preview', false);
 
     }
 
     public function write() {
 
-        echo $this->renderPage('editor', true);
+        echo $this->renderPage('preview', true);
 
     }
 
