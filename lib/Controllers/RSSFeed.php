@@ -60,9 +60,11 @@ class RSSFeed
 
             $rss = self::fetchRSSFeed();
 
-            file_put_contents($filename, json_encode($rss) );
+            $json = json_encode($rss);
 
-            return json_decode($rss);
+            file_put_contents($filename, $json);
+
+            return json_decode($json);
         }
 
     }

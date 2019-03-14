@@ -8,6 +8,8 @@
 
 namespace PCC_EPE\Controllers;
 
+use PCC_EPE\Models\Config;
+
 /**
  * Class Parsers
  * @package PCC_EPE\Functions
@@ -30,9 +32,6 @@ class Parsers
             return $config;
             break;
 
-//            case 'text':
-//            return self::parseTextConfigFile($config);
-//            break;
         }
 
         return $config;
@@ -41,7 +40,7 @@ class Parsers
 
     public static function parsePostData($config) {
 
-        $files = new Files();
+        $files = Config::$files;
 
         $data = [
                 'config'   => [
@@ -79,7 +78,7 @@ class Parsers
      */
     public static function parseTextConfigFile($config ) {
 
-        $files = new Files();
+        $files = Config::$files;
 
         $sections = explode('## ', $config['file']);
 
