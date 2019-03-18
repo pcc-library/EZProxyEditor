@@ -30,4 +30,6 @@ class Config
 
     public static $post_data;
 
+    public static $user = false;
+
 }

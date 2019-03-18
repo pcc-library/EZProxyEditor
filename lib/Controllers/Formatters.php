@@ -94,5 +94,11 @@ class Formatters
 
     }
 
+    public static function formatName($name) {
+
+        return ucwords( str_replace(['.', ','], ' ' , $name) );
+
+    }
+
 
 }

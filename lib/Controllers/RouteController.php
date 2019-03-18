@@ -9,6 +9,7 @@
 namespace PCC_EPE\Controllers;
 
 use PCC_EPE\Models\Config;
+use PCC_EPE\Controllers\Parsers;
 
 /**
  * Class RouteController
@@ -37,14 +38,26 @@ class RouteController
 
     public function renderPage($pagename, $write) {
 
-        $renderUI = $this->getRenderUIInstance();
-        $files = $this->getFileInstance();
-        $data = GetDataController::init();
-        $data['rss_feed'] = RSSFeed::rssFeed();
-        $data['baseurl'] = BASEURL;
+        $user = Config::$user;
 
-        if($write) {
-            $data['messages'][] = $files->writeTextConfig();
+        if($user) {
+
+            $renderUI = $this->getRenderUIInstance();
+            $files = $this->getFileInstance();
+            $data = GetDataController::init();
+            $data['rss_feed'] = RSSFeed::rssFeed();
+            $data['baseurl'] = BASEURL;
+            $data['user'] = Formatters::formatName($user);
+
+            if ($write) {
+                $data['messages'][] = $files->writeTextConfig();
+            }
+
+        } else {
+
+            $pagename = 'nope';
+            $data = [];
+
         }
 
         return  $renderUI->renderTemplate($pagename, $data);

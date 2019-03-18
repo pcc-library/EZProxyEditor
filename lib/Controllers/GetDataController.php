@@ -28,9 +28,9 @@ class GetDataController
 
         $files = new Files();
 
-        if($post_data) {
+        if($post_data['section']) {
 
-            $config = Parsers::parsePostData($post_data);
+            $config = Parsers::parsePostData($post_data['section']);
 
         } else {
 
