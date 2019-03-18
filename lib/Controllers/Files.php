@@ -6,16 +6,15 @@
  * Time: 14:41
  */
 
-namespace PCC_EPE\Functions;
+namespace PCC_EPE\Controllers;
 
 use Exception;
-use PCC_EPE\Frontend\RenderUI;
-use PCC_EPE\Controllers\Parsers;
-use PCC_EPE\Controllers\Formatters;
+use PCC_EPE\View\RenderView;
+
 /**
  * Class Files
  * Read & write config.txt files
- * @package PCC_EPE\Functions
+ * @package PCC_EPE\Controllers
  */
 class Files
 {
@@ -26,9 +25,11 @@ class Files
      * @param string $pattern
      * @return int|string|null
      */
-    public function findConfigFile($pattern = 'config_*') {
+    public function findConfigFile($pattern = 'config_*',$suffix = 'json') {
 
-        $files = glob(EZPEWRITEABLE .$pattern);
+        $filename = $pattern.'.{'.$suffix.'}';
+
+        $files = glob(EZPEWRITEABLE.$filename, GLOB_BRACE);
         $files = array_combine($files, array_map('filectime', $files));
         arsort($files);
 
@@ -44,14 +45,15 @@ class Files
 
         $filename = $this->findConfigFile();
 
+        $messages = new MessageController();
+
         if(!$filename) {
 
           $data = $this->generateNewConfig();
 
         } else {
 
-            $messages['status'] = true;
-            $messages['text'] = "Found ".basename($filename);
+            $messages->addMessage(true, "Found ".basename($filename));
             $source = 'json';
 
             $file = file_get_contents($filename);
@@ -61,7 +63,6 @@ class Files
                 'config' => [ 'source' => $source ]
             ];
 
-            $data['messages'][] = Formatters::formatMessage($messages['status'], $messages['text']);
 
         }
 
@@ -71,8 +72,9 @@ class Files
 
     public function generateNewConfig() {
 
-        $messages['status'] = false;
-        $messages['text'] = "Custom config file not found. Creating new one from master.";
+        $messages = new MessageController();
+
+        $messages->addMessage( false, "Custom config file not found. Creating new one from master.");
         $filename = EZPEPATH."/config.master.txt";
         $source = 'text';
 
@@ -83,7 +85,6 @@ class Files
             'config' => [ 'source' => $source ]
         ];
 
-        $data['messages'][] = Formatters::formatMessage($messages['status'], $messages['text']);
 
         $config = Parsers::parseTextConfigFile($data);
 
@@ -95,18 +96,20 @@ class Files
 
     public function writeEditorConfigFile($filename, $data) {
 
+        $messages = new MessageController();
+
         try {
 
             $filecontent = Formatters::updateDate($data['sections']);
 
             file_put_contents(EZPEWRITEABLE.$filename, json_encode($filecontent, JSON_PRETTY_PRINT));
 
-           $data['messages'][] = Formatters::formatMessage(true,"Wrote file ".basename($filename)." successfully");
+            $messages->addMessage(true,"Wrote file ".basename($filename)." successfully");
 
 
         }  catch(Exception $e) {
 
-           $data['messages'][] = Formatters::formatMessage(false, "Couldn\'t write file ".basename($filename));
+           $messages->addMessage(false, "Couldn\'t write file ".basename($filename));
 
         }
 
@@ -117,37 +120,43 @@ class Files
 
     public function writeTextConfig() {
 
+        $messages = new MessageController();
+
+        $messages->clearMessages();
+
         $files = new Files();
-        $render = new RenderUI();
+        $render = new RenderView();
 
         $file = $files->loadConfigFile();
 
         $data = Parsers::parseJsonConfigFile($file);
 
-        $filename = 'config.txt';
+        $filename = self::generateFilename('config_','.txt');
 
-        $output = $render->renderTemplate("config/sections_config", $data);
+        $output = $render->getTemplate("config/sections_config", $data);
 
         try {
 
             file_put_contents(EZPEWRITEABLE.$filename, $output);
 
-            $data['messages'] = Formatters::formatMessage(true,"Wrote file ".basename($filename)." successfully");
+            $messages->addMessage(true,"Wrote file ".basename($filename)." successfully");
+
+            return true;
 
 
         }  catch(Exception $e) {
 
-            $data['messages'] = Formatters::formatMessage(false, "Couldn\'t write file ".basename($filename));
+            $messages->addMessage(false, "Couldn\'t write file ".basename($filename));
+
+            return false;
 
         }
 
-        return $data['messages'];
-
     }
 
-    public function generateFilename() {
+    public function generateFilename($filename = 'config_',$suffix = '.json') {
 
-        return 'config_'.date('mdY').'.json';
+        return $filename.date('mdY').$suffix;
 
     }
 

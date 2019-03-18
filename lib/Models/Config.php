@@ -9,6 +9,10 @@
 namespace PCC_EPE\Models;
 
 
+/**
+ * Class Config
+ * @package PCC_EPE\Models
+ */
 class Config
 {
 
@@ -17,6 +21,9 @@ class Config
      */
     public static $twig;
 
+    /**
+     * @var
+     */
     public static $renderUI;
 
     /**

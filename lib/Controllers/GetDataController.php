@@ -8,8 +8,10 @@
 
 namespace PCC_EPE\Controllers;
 
-use PCC_EPE\Functions\Files;
-
+/**
+ * Class GetDataController
+ * @package PCC_EPE\Controllers
+ */
 class GetDataController
 {
 
@@ -18,12 +20,20 @@ class GetDataController
      */
     public static function init() {
 
-       $post_data = new RouteController();
+       $state = new State();
 
-       return self::getDataOnLoad($post_data->getPostDataInstance());
+        $messages = new MessageController();
+
+        //$messages->clearMessages();
+
+       return self::getDataOnLoad($state->getPostDataInstance());
 
     }
 
+    /**
+     * @param $post_data
+     * @return array
+     */
     public static function getDataOnLoad($post_data) {
 
         $files = new Files();

@@ -9,7 +9,7 @@
 namespace PCC_EPE\Controllers;
 
 use PCC_EPE\Models\Config;
-use PCC_EPE\Controllers\Parsers;
+use PCC_EPE\View\RenderView;
 
 /**
  * Class RouteController
@@ -18,39 +18,71 @@ use PCC_EPE\Controllers\Parsers;
 class RouteController
 {
 
+    /**
+     * Render Editor Page
+     */
     public function editor() {
 
         echo $this->renderPage('editor', false);
 
     }
 
+    /**
+     * Render Preview Page
+     */
     public function preview() {
 
-        echo $this->renderPage('preview', false);
+
+        echo $this->renderPage('preview', false );
 
     }
 
+    /**
+     * Render Preview Page with Write flag
+     */
     public function write() {
 
-        echo $this->renderPage('preview', true);
+        echo $this->renderPage('preview', true );
 
     }
 
-    public function renderPage($pagename, $write) {
+    /**
+     *
+     */
+    public function upload() {
+
+        $remote = new UploadController();
+
+        $data = $remote->UploadConfig();
+
+        echo $this->renderPage('upload', false, $data);
+
+    }
+
+    /**
+     * @param $pagename | string
+     * @param $write | bool
+     * @param $data | array
+     * @return mixed
+     */
+    public function renderPage($pagename, $write, $data = null) {
 
         $user = Config::$user;
+        $views = new RenderView();
+
+        if(!$data) {
+            $data = GetDataController::init();
+        }
 
         if($user) {
 
-            $renderUI = $this->getRenderUIInstance();
-            $files = $this->getFileInstance();
-            $data = GetDataController::init();
+            $files = new Files();
             $data['rss_feed'] = RSSFeed::rssFeed();
             $data['baseurl'] = BASEURL;
             $data['user'] = Formatters::formatName($user);
 
             if ($write) {
-                $data['messages'][] = $files->writeTextConfig();
+                $files->writeTextConfig();
             }
 
         } else {
@@ -60,38 +92,10 @@ class RouteController
 
         }
 
-        return  $renderUI->renderTemplate($pagename, $data);
+        return  $views->getTemplate($pagename, $data);
 
     }
 
-    public function getTwigInstance()
-    {
-        return Config::$twig;
-    }
 
-    public function getRenderUIInstance()
-    {
-        return Config::$renderUI;
-    }
-
-    public function getProjectSubFolderPath()
-    {
-        return Config::$strSubfolderRoute;
-    }
-
-    public function getRouterInstance()
-    {
-        return Config::$router;
-    }
-
-    public function getPostDataInstance()
-    {
-        return Config::$post_data;
-    }
-
-    public function getFileInstance()
-    {
-        return Config::$files;
-    }
 
 }

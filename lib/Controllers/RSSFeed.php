@@ -10,7 +10,7 @@ namespace PCC_EPE\Controllers;
 
 /**
  * Class RSSFeed
- * @package PCC_EPE\Functions
+ * @package PCC_EPE\Controllers
  */
 class RSSFeed
 {

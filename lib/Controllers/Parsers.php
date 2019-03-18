@@ -12,7 +12,7 @@ use PCC_EPE\Models\Config;
 
 /**
  * Class Parsers
- * @package PCC_EPE\Functions
+ * @package PCC_EPE\Controllers
  * Initialize the editor by loading config file, fetch OCLC RSS, populate content array for twig to render.
  */
 class Parsers
@@ -40,7 +40,7 @@ class Parsers
 
     public static function parsePostData($config) {
 
-        $files = Config::$files;
+        $files = new Files();
 
         $data = [
                 'config'   => [
@@ -78,8 +78,6 @@ class Parsers
      */
     public static function parseTextConfigFile($config ) {
 
-        $files = Config::$files;
-
         $sections = explode('## ', $config['file']);
 
         foreach($sections as $section) {
@@ -94,8 +92,8 @@ class Parsers
             if( strlen( $section_title ) > 1  ) {
 
                 $config['sections'][] = [
-                    'section_title' => self::formatTitle($section_title),
-                    'content' => self::formatContent($section_title, $section_content),
+                    'section_title' => Formatters::formatTitle($section_title),
+                    'content' => Formatters::formatContent($section_title, $section_content),
                 ];
 
             }
@@ -103,62 +101,6 @@ class Parsers
         }
 
         return $config;
-
-    }
-
-    /**
-     * @param $title
-     * @return mixed
-     */
-    public static function formatTitle($title) {
-
-        return str_replace('Start ','',$title);
-
-    }
-
-    /**
-     * @param $title
-     * @param $content
-     * @return array
-     */
-    public static function formatContent($title, $content) {
-
-        return self::splitStanzas($content);
-
-    }
-
-
-    /**
-     * @param $content
-     * @return array
-     */
-    public static function splitStanzas($content) {
-
-        $stanzas = explode('# ', $content);
-        $output = [];
-
-        foreach($stanzas as $stanza) {
-
-            $stanza_title = strtok($stanza, "\n");
-
-            $pos = strpos($stanza, $stanza_title);
-            if ($pos !== false) {
-                $stanza_content = substr_replace($stanza, '', $pos, strlen($stanza_title));
-            }
-
-            if( strlen($stanza_title) > 1 ) {
-
-                $output[] = [
-                    'stanza_title' => $stanza_title,
-                    'stanza_body' => trim($stanza_content)
-                ];
-
-
-            }
-
-        }
-
-        return array_filter($output);
 
     }
 
