@@ -23,10 +23,6 @@ class Authentication
      */
     public function __construct() {
 
-        $messages = new State();
-
-        $post_data = Config::$post_data;
-
         // Enable debugging
         phpCAS::setDebug();
 
@@ -49,7 +45,6 @@ class Authentication
         phpCAS::forceAuthentication();
 
         Config::$user = phpCAS::getUser();
-
 
 
     }

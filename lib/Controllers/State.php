@@ -46,4 +46,8 @@ class State
         return Config::$post_data;
     }
 
+    public function getSettingsInstance() {
+        return Config::$settings;
+    }
+
 }

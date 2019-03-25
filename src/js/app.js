@@ -129,7 +129,7 @@ function enable_buttons() {
 
 function enable_update_button() {
 
-    $('button#update').removeAttr('disabled');
+    $('button#update_config_button').removeAttr('disabled');
 
 }
 

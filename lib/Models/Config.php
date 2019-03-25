@@ -39,4 +39,6 @@ class Config
 
     public static $user = false;
 
+    public static $settings;
+
 }
