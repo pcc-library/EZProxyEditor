@@ -3,7 +3,7 @@
 
 {% for stanza in section.content %}
 # {{ stanza.stanza_title | trim }}
-{{ stanza.stanza_body | trim }}
+{{ stanza.stanza_body | trim | raw }}
 
 {% endfor %}
 {% endfor %}
