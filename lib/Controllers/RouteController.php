@@ -82,7 +82,7 @@ class RouteController
             $data['user'] = Formatters::formatName($user);
 
             if ($write) {
-                $files->writeTextConfig();
+                $data['filename'] = $files->writeTextConfig();
             }
 
         } else {

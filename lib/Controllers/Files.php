@@ -141,7 +141,7 @@ class Files
 
             $messages->addMessage(true,"Wrote file ".basename($filename)." successfully");
 
-            return true;
+            return $filename;
 
 
         }  catch(Exception $e) {
