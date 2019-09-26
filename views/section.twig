@@ -17,7 +17,7 @@
 
                 <li id="stanza-{{ section_loop }}_{{ loop.index -1 }}">
                 <a href="javascript:void(0)" class="" data-parent="#menu{{ section_loop }}">
-                    {{ stanza.stanza_title | trim }}
+                    {{ stanza.stanza_title | trim | raw }}
                 </a>
 
                 <input class="stanza_title" type="hidden" value="{{ stanza.stanza_title }}" name="section[{{ section_loop }}][content][{{ loop.index -1 }}][stanza_title]" />
