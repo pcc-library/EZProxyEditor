@@ -133,6 +133,24 @@ function enable_update_button() {
 
 }
 
+function enable_reorder() {
+
+        var menu = $( "#menu2" );
+
+            menu.sortable({
+                connectWith: '.sortable',
+                update: function(event, ui)
+                {
+                    enable_update_button();
+                    console.log('end drag');
+                }
+            });
+            menu.disableSelection();
+
+
+
+}
+
 $( document ).ready(function() {
 
     var sidebar_links = $('#sidebar ul li a');
@@ -148,6 +166,9 @@ $( document ).ready(function() {
     setTimeout(function() {
         $(".alert").alert('close');
     }, 8000);
+
+
+    enable_reorder();
 
 });
 

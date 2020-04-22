@@ -6,10 +6,17 @@
 
         <!-- Text input-->
         <div class="form-group">
+            <label class="form-label" for="last_edited">Last Edited: <span class="text-muted" id="last_edited_text">{{ "now"|date('Y-m-d h:m A') }}</span></label>
+            <input type="hidden" name="last_edited" value="" />
+
+        <!-- Text input-->
+        <div class="form-group">
             <label class="form-label" for="stanza_title">Stanza Title</label>
             <input id="stanza_title" name="stanza_title" type="text" placeholder="title" class="form-control input-md" readonly="">
         </div>
 
+
+        </div>
         <!-- Textarea -->
         <div class="form-group">
             <label class="form-label" for="stanzabody">Stanza Content</label>
