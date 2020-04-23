@@ -151,7 +151,6 @@ function enable_reorder() {
         var menu = $( ".sortable" );
 
             menu.sortable({
-                connectWith: '.sortable',
                 update: function(event, ui)
                 {
                     enable_update_button();
