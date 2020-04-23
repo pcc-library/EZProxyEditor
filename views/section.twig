@@ -20,8 +20,9 @@
                     {{ stanza.stanza_title | trim | raw }}
                 </a>
 
-                <input class="stanza_title" type="hidden" value="{{ stanza.stanza_title }}" name="section[{{ section_loop }}][content][{{ loop.index -1 }}][stanza_title]" />
-                <input class="stanza_body" type="hidden" name="section[{{ section_loop }}][content][{{ loop.index -1 }}][stanza_body]" value="{{ stanza.stanza_body }}" />
+                <input class="stanza_title" type="hidden" value="{{ stanza.stanza_title }}" name="section[{{ section_loop }}][content][][stanza_title]" />
+                <input class="stanza_body" type="hidden" name="section[{{ section_loop }}][content][][stanza_body]" value="{{ stanza.stanza_body }}" />
+                <input class="last_edited" type="hidden" name="section[{{ section_loop }}][content][][last_edited]" />
 
                 </li>
 
