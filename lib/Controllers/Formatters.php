@@ -32,7 +32,7 @@ class Formatters
      */
     public static function formatTitle($title) {
 
-        return str_replace('Start ','',$title);
+        return str_replace('Start ','', html_entity_decode($title));
 
     }
 
