@@ -1,0 +1,57 @@
+<form id="editor_form" class="form-horizontal" onsubmit="return false;">
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend>Add New Stanza</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            {#<label class="form-label" for="last_edited">Created: <span class="text-muted" id="last_edited_text">{{ "now"|date('Y-m-d h:m A') }}</span></label>#}
+            {#<input type="hidden" name="last_edited" value="" />#}
+        {#</div>#}
+
+        <div class="form-group">
+            <label class="form-label" for="category">Stanza Category</label>
+            <select id="category" class="form-control">
+
+                        <option value="">- select section -</option>
+                {% for section in sections %}
+
+                    {% if section.section_title is not empty %}
+
+                       <option value="{{ loop.index -1 }}">{{ section.section_title }}</option>
+
+                    {% endif %}
+
+                {% endfor %}
+
+            </select>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="form-label" for="stanza_title">Stanza Title</label>
+            <input id="stanza_title" name="stanza_title" type="text" placeholder="title" class="form-control input-md" value="New Stanza" />
+        </div>
+
+
+        </div>
+        <!-- Textarea -->
+        <div class="form-group">
+            <label class="form-label" for="stanzabody">Stanza Content</label>
+            <textarea rows="8" class="form-control" id="stanza_body" name="stanzabody">Stanza Content</textarea>
+        </div>
+
+        <div class="form-group">
+
+            <button id="clear_btn" class="btn-secondary btn" disabled>Clear</button>
+            <button id="save_btn" class="btn-success btn" disabled>Save Stanza</button>
+
+        </div>
+
+        <input type="hidden" id="previous_title" value="" />
+        <input type="hidden" id="previous_body" value="" />
+        <input type="hidden" id="origin_id" value="" />
+
+    </fieldset>
+</form>

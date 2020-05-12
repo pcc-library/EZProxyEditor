@@ -2,7 +2,7 @@
         <div class="bd-toc-item">
 
             <div data-target="#menu{{ loop.index -1 }}" class="bd-toc-link" data-toggle="collapse">
-                <h5>{{ section.section_title }}</h5>
+                <h5 class="section" data-section="{{ loop.index -1 }}">{{ section.section_title }}</h5>
                 <input type="hidden" value="{{ section.section_title }}" name="section[{{ loop.index -1 }}][section_title]" />
 
             </div>
@@ -16,7 +16,10 @@
                 {% if stanza.stanza_title %}
 
                 <li id="stanza-{{ section_loop }}_{{ loop.index -1 }}">
-                <a href="javascript:void(0)" class="" data-parent="#menu{{ section_loop }}">
+                <a href="javascript:void(0)" class="stanza"
+                   data-section="{{ section_loop }}"
+                   data-stanza="{{ loop.index -1 }}"
+                   data-parent="#menu{{ section_loop }}">
                     {{ stanza.stanza_title | trim | raw }}
                 </a>
 

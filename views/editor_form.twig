@@ -6,9 +6,9 @@
 
         <!-- Text input-->
         <div class="form-group">
-            <label class="form-label" for="last_edited">Last Edited: <span class="text-muted" id="last_edited_text">{{ "now"|date('Y-m-d h:m A') }}</span></label>
-            <input type="hidden" name="last_edited" value="" />
-
+            {#<label class="form-label" for="last_edited">Last Edited: <span class="text-muted" id="last_edited_text">{{ "now"|date('Y-m-d h:m A') }}</span></label>#}
+            {#<input type="hidden" name="last_edited" value="" />#}
+        {#</div>#}
         <!-- Text input-->
         <div class="form-group">
             <label class="form-label" for="stanza_title">Stanza Title</label>
@@ -26,7 +26,9 @@
         <div class="form-group">
 
             <button id="revert_btn" class="btn-secondary btn" disabled>Revert</button>
-            <button id="save_btn" class="btn-success btn" disabled>Update Stanza</button>
+            <button id="update_btn" class="btn-success btn" disabled>Update Stanza</button>
+
+            <button id="delete_btn" class="btn-success btn pull-right" data-toggle="modal" data-target="#deleteModal" disabled>Delete Stanza</button>
 
         </div>
 
@@ -36,3 +38,24 @@
 
     </fieldset>
 </form>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-warning">
+                <h5 class="modal-title" id="deleteModalLabel">Delete Stanza</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete <b><span id="stanza_to_delete">Stanza</span></b>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary pull-left" data-dismiss="modal">Cancel</button>
+                <button id="delete_stanza_btn" type="button" class="btn btn-danger pull-right">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
