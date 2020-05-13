@@ -192,8 +192,6 @@ function enable_reorder() {
             });
             menu.disableSelection();
 
-
-
 }
 
 function select_category() {
@@ -246,16 +244,19 @@ function insert_new_stanza() {
     var section = $("#category").val(),
         stanza_title = $('#stanza_title').val(),
         stanza_body = $('#stanza_body').val(),
-        status = $('.sidebar.right .card.edited');
+        status = $('.sidebar.right .card.edited'),
+        menu = $("#menu"+section);
 
 
-    var count = $("#menu"+section).children();
+    var count = menu.children();
     var offset = count.length + Math.floor(Math.random() * 10);
 
 
     // alert(iterate);
 
-    $("#menu"+section).prepend(stanza_template(stanza_title,stanza_body,section,offset));
+    menu.prepend(stanza_template(stanza_title,stanza_body,section,offset));
+
+    menu.sortable('refresh');
 
     //status.removeClass('hide');
 
