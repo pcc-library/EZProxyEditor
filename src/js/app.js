@@ -18,6 +18,14 @@ function init_buttons() {
         update_stanza();
     })
 
+    $('#delete_btn').click(function () {
+
+        var stanza_title = $('#stanza_title').val();
+
+        $("#stanza_to_delete").text(stanza_title);
+
+    })
+
     $('#delete_stanza_btn').click(function () {
         delete_stanza();
         $('#deleteModal').modal('hide');
