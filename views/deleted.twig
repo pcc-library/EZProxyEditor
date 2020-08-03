@@ -1,0 +1,21 @@
+{% extends 'card.twig' %}
+
+{% block cardclass %}deleted hide{% endblock %}
+
+{% block cardtitle %}
+    Deleted Stanzas
+{% endblock %}
+
+{% block cardbody %}
+
+    <p class="card-text">These stanzas have been deleted, but the changes are not yet written to a configuration file.</p>
+
+    <ul id="deleted_stanzas" class="">
+
+
+    </ul>
+
+    <a target="_self" href="{{ baseurl }}/" class="card-link">Revert to file</a><br/>
+    <a target="_self" href="{{ baseurl }}/write" class="card-link">Save to File</a>
+
+{% endblock %}

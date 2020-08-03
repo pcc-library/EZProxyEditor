@@ -54,9 +54,20 @@
 
       }
 
+      /* icon */
+
+      i.fa {
+        display: none;
+      }
+
       /* menu item expanded */
 
       &[aria-expanded="true"] {
+
+        i.fa {
+          display: block;
+          z-index: 100;
+        }
 
         h5 {
           color: $gray-600;

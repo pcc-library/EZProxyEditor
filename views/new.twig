@@ -4,13 +4,15 @@
 
 {% block sidebar %}
 
+    {% set new = 'true' %}
+
     {% include 'sidebar.twig' %}
 
 {% endblock %}
 
 {% block content %}
 
-        {% include 'editor_form.twig' %}
+        {% include 'new_form.twig' %}
 
 {% endblock %}
 
@@ -26,7 +28,7 @@
 
 {% block rightcol %}
 
-    {% set widgets = ['edited','deleted','rssfeed'] %}
+    {% set widgets = ['edited','rssfeed'] %}
     {% include 'rightcol.twig' with {'widgets': widgets } %}
 
 {% endblock %}

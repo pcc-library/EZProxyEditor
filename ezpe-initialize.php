@@ -63,6 +63,8 @@ Config::$router = $router;
 
 $router->map('GET',$strSubfolderRoute.'/','PCC_EPE\Controllers\RouteController#editor', 'editor');
 
+$router->map('GET',$strSubfolderRoute.'/new','PCC_EPE\Controllers\RouteController#addnew', 'new');
+
 $router->map('POST',$strSubfolderRoute.'/','PCC_EPE\Controllers\RouteController#editor', 'update');
 
 $router->map('GET',$strSubfolderRoute.'/write','PCC_EPE\Controllers\RouteController#write', 'write');
