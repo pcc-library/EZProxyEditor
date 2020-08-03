@@ -44,8 +44,7 @@ class Authentication
         // force CAS authentication
         phpCAS::forceAuthentication();
 
-        Config::$user = phpCAS::getUser();
-
+        Config::$user = self::checkUser();
 
     }
 
@@ -55,6 +54,27 @@ class Authentication
     public function getUser() {
 
         return Config::$user;
+
+    }
+
+    /**
+     * @return bool
+     */
+    public function checkUser() {
+
+        $user = phpCAS::getUser();
+        $users = Config::$users;
+
+        if(in_array($user,$users)) {
+
+           return $user;
+
+        } else {
+
+            return false;
+        }
+
+
 
     }
 

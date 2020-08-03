@@ -16,10 +16,12 @@ function init_buttons() {
 
     $('#save_btn').click(function () {
         update_stanza();
+        console.log(this);
     })
 
     $('#revert_btn').click(function () {
         revert_editor();
+        console.log(this);
     })
 
 
@@ -59,6 +61,7 @@ function edit_data(clickedBtnID) {
 
     var stanza_title = $('#'+clickedBtnID+' input.stanza_title').val().trim(),
         stanza_body = $('#'+clickedBtnID+' input.stanza_body').val().trim();
+        // last_edited = $('#'+clickedBtnID+' input.last_edited').val().trim();
 
     $('#previous_title').val(stanza_title);
     $('#previous_body').val(stanza_body);
@@ -67,6 +70,17 @@ function edit_data(clickedBtnID) {
 
     $('#stanza_title').val(stanza_title).removeAttr('readonly');
     $('#stanza_body').val(stanza_body).removeAttr('readonly');
+
+    // if(!last_edited) {
+    //     var last_edited =  $.datepicker.formatDate('yy/mm/dd h:i:s A', new Date());
+    //
+    //     $('#last_edited').val(last_edited);
+    //     $('#last_edited_text').text(last_edited);
+    // } else {
+    //
+    //     $('#last_edited').val(last_edited);
+    //     $('#last_edited_text').text(last_edited);
+    // }
 
     disable_buttons();
 
@@ -77,6 +91,7 @@ function update_stanza() {
     var target_id = $('#origin_id').val(),
         stanza_title = $('#stanza_title').val(),
         stanza_body = $('#stanza_body').val(),
+        // last_edited = $('#last_edited').val(),
         target = $('#'+target_id),
         status = $('.sidebar.right .card.edited');
 
@@ -89,11 +104,10 @@ function update_stanza() {
 
     create_list_item(target_id,stanza_title);
 
+    console.log((target_id,stanza_title));
+
+    disable_buttons();
     enable_update_button();
-
-
-    //disable_buttons();
-
 }
 
 function revert_editor() {
@@ -133,6 +147,23 @@ function enable_update_button() {
 
 }
 
+function enable_reorder() {
+
+        var menu = $( ".sortable" );
+
+            menu.sortable({
+                update: function(event, ui)
+                {
+                    enable_update_button();
+                    console.log('end drag');
+                }
+            });
+            menu.disableSelection();
+
+
+
+}
+
 $( document ).ready(function() {
 
     var sidebar_links = $('#sidebar ul li a');
@@ -148,6 +179,9 @@ $( document ).ready(function() {
     setTimeout(function() {
         $(".alert").alert('close');
     }, 8000);
+
+
+    enable_reorder();
 
 });
 

@@ -28,6 +28,15 @@ class RouteController
     }
 
     /**
+     * Render New Stanza Page
+     */
+    public function addnew() {
+
+        echo $this->renderPage('new', false);
+
+    }
+
+    /**
      * Render Preview Page
      */
     public function preview() {
@@ -82,7 +91,7 @@ class RouteController
             $data['user'] = Formatters::formatName($user);
 
             if ($write) {
-                $files->writeTextConfig();
+                $data['filename'] = $files->writeTextConfig();
             }
 
         } else {

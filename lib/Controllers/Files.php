@@ -100,7 +100,9 @@ class Files
 
         try {
 
-            $filecontent = Formatters::updateDate($data['sections']);
+            $sections = Formatters::updateDate($data['sections']);
+
+            $filecontent = Formatters::formatSections($sections); // testing to fix array after reorder
 
             file_put_contents(EZPEWRITEABLE.$filename, json_encode($filecontent, JSON_PRETTY_PRINT));
 
@@ -141,7 +143,7 @@ class Files
 
             $messages->addMessage(true,"Wrote file ".basename($filename)." successfully");
 
-            return true;
+            return $filename;
 
 
         }  catch(Exception $e) {

@@ -32,7 +32,7 @@ class Formatters
      */
     public static function formatTitle($title) {
 
-        return str_replace('Start ','',$title);
+        return str_replace('Start ','', html_entity_decode($title));
 
     }
 
@@ -88,6 +88,13 @@ class Formatters
 
         $date = date('m/d/y h:i:s A');
 
+
+        if(!isset($data[0]['content'][0]['stanza_body'])) {
+
+            array_shift($data);
+
+        }
+
         $data[0]['content'][0]['stanza_title'] = 'Updated '.$date;
 
         return $data;
@@ -97,6 +104,44 @@ class Formatters
     public static function formatName($name) {
 
         return ucwords( str_replace(['.', ','], ' ' , $name) );
+
+    }
+
+    public static function formatSections($data) {
+
+        if(is_iterable($data)) {
+
+            foreach($data as $section) {
+
+                $return[] = [
+
+                    "section_title" => $section['section_title'],
+                    "content" => self::formatStanzas($section['content'])
+
+                ];
+
+            }
+
+            return $return;
+
+        }
+
+    }
+
+    public static function formatStanzas($data) {
+
+        foreach($data as $stanza) {
+
+            $return[] = [
+
+                "stanza_title" => $stanza['stanza_title'],
+                "stanza_body" => $stanza['stanza_body']
+
+            ];
+
+        }
+
+        return $return;
 
     }
 

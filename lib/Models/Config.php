@@ -39,6 +39,8 @@ class Config
 
     public static $user = false;
 
+    public static $users = ['dmeeds','gustavo.lanzas', 'lisa.molinelli'];
+
     public static $settings;
 
 }
