@@ -2,13 +2,15 @@
     <fieldset>
 
         <!-- Form Name -->
-        <legend>Add New Stanza</legend>
-
+        <legend class="text-success">Add New Stanza</legend>
+        <p class="text-muted">You are adding a new stanza. Please make sure to update the configuration file and write the EZProxy Config File when you are done.</p>
         <!-- Text input-->
         <div class="form-group">
-            {#<label class="form-label" for="last_edited">Created: <span class="text-muted" id="last_edited_text">{{ "now"|date('Y-m-d h:m A') }}</span></label>#}
-            {#<input type="hidden" name="last_edited" value="" />#}
-        {#</div>#}
+
+{#            <input id="last_edited" type="text" name="last_edited" value="{{ "now"|date('Y-m-d h:m A') }}" />#}
+{#            <input id="current_user" type="text" name="user" value="{{ user }}" />#}
+        </div>
+        <!-- Text input-->
 
         <div class="form-group">
             <label class="form-label" for="category">Stanza Category</label>
@@ -35,7 +37,6 @@
         </div>
 
 
-        </div>
         <!-- Textarea -->
         <div class="form-group">
             <label class="form-label" for="stanzabody">Stanza Content</label>
