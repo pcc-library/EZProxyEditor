@@ -1,0 +1,24 @@
+{% extends 'twocols.twig' %}
+
+{% block title %}EZproxy Config Preview{% endblock %}
+
+{% block content %}
+    <div class="p-3">{% include 'config/sections_config_validate.twig' %}</div>
+{% endblock %}
+
+{% block messages %}
+
+    {% for message in messages %}
+
+        {% include 'messages.twig' with { 'status': message[0], 'text': message[1]} %}
+
+    {% endfor %}
+
+{% endblock %}
+
+{% block rightcol %}
+
+    {% set widgets = ['updated'] %}
+    {% include 'rightcol.twig' with {'widgets': widgets } %}
+
+{% endblock %}

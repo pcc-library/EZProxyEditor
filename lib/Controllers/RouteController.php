@@ -41,10 +41,16 @@ class RouteController
      */
     public function preview() {
 
-
         echo $this->renderPage('preview', false );
 
     }
+
+    public function validate() {
+
+        echo $this->renderPage('validate', false );
+
+    }
+
 
     /**
      * Render Preview Page with Write flag

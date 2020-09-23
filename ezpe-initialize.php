@@ -71,6 +71,8 @@ $router->map('GET',$strSubfolderRoute.'/write','PCC_EPE\Controllers\RouteControl
 
 $router->map('GET',$strSubfolderRoute.'/preview','PCC_EPE\Controllers\RouteController#preview', 'preview');
 
+$router->map('GET',$strSubfolderRoute.'/validate','PCC_EPE\Controllers\RouteController#validate', 'validate');
+
 $router->map('GET',$strSubfolderRoute.'/upload','PCC_EPE\Controllers\RouteController#upload', 'upload');
 
 if (isset($_REQUEST['logout'])) {
