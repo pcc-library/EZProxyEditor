@@ -1,7 +1,8 @@
 {% for section in sections %}
 {% set title = section.section_title | trim %}
 {% if "Subscription Databases" in title  %}
-<h3>Subscription Databases</h3>
+<h3>Current Configuration</h3>
+<p>The current configuration contains the following subscription database stanzas.</p>
 <ul>
 {% for stanza in section.content %}
 <li class="p-0 m-0">{{ stanza.stanza_title | trim }}</li>

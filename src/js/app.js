@@ -259,9 +259,14 @@ function insert_new_stanza() {
     create_list_item("stanza_00",stanza_title,'#edited_stanzas');
 
     $("#editor_form").trigger('reset');
+
     disable_buttons();
 
     enable_update_button();
+
+    $(".sidebar.right").on("click", "#update_config_button", function(){
+        $("#update_config_form").submit(); // Submit the form
+    });
 
 }
 
@@ -284,7 +289,7 @@ $( document ).ready(function() {
     enable_reorder();
 
     select_category();
-    
+
     $(function () {
         $('#editor_form').on('change', function () {
             var title = $('#stanza_title'),
