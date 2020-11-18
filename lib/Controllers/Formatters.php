@@ -32,7 +32,7 @@ class Formatters
      */
     public static function formatTitle($title) {
 
-        return str_replace('Start ','', html_entity_decode($title));
+        return trim(str_replace('Start ','', html_entity_decode($title)));
 
     }
 
@@ -69,7 +69,7 @@ class Formatters
             if( strlen($stanza_title) > 1 ) {
 
                 $output[] = [
-                    'stanza_title' => $stanza_title,
+                    'stanza_title' => trim($stanza_title),
                     'stanza_body' => trim($stanza_content)
                 ];
 

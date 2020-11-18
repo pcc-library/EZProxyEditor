@@ -11,6 +11,7 @@ namespace PCC_EPE;
 $settings = require("ezpe-config.php");
 
 use PCC_EPE\Controllers\Authentication;
+use PCC_EPE\Controllers\ValidateData;
 use PCC_EPE\Models\Config;
 
 use AltoRouter;
@@ -55,6 +56,8 @@ $twig = new Environment($loader, [
 
 /** config Twig */
 $twig->addExtension(new DebugExtension());
+
+
 
 /** set state in Models\Config **/
 Config::$twig = $twig;

@@ -222,7 +222,7 @@ function select_category() {
 
 function stanza_template(title, content, section, iterate) {
 
-    return '<li id="stanza-'+section+'_'+iterate+'" class="ui-sortable-handle active">\n' +
+    return '<li id="stanza-'+section+'_'+iterate+'" class="ui-sortable-handle active updated">\n' +
         '        <a href="javascript:void(0)"\n' +
         '           class="stanza"\n' +
         '           data-section="'+section+'"\n' +
@@ -248,8 +248,11 @@ function insert_new_stanza() {
         status = $('.sidebar.right .card.edited'),
         menu = $("#menu"+section);
 
+
     var count = menu.children();
     var offset = count.length + Math.floor(Math.random() * 10);
+
+    menu.parents('.bd-toc-item').find('h5').addClass('updated');
 
     status.removeClass('hide');
 
@@ -264,9 +267,6 @@ function insert_new_stanza() {
 
     enable_update_button();
 
-    $(".sidebar.right").on("click", "#update_config_button", function(){
-        $("#update_config_form").submit(); // Submit the form
-    });
 
 }
 
@@ -307,5 +307,9 @@ $( document ).ready(function() {
         });
     });
 
+});
+
+$( document ).on("click", "#update_config_button", function(){
+    $("#update_config_form").submit(); // Submit the form
 });
 
