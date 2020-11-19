@@ -1,6 +1,6 @@
 <div class="card {% block cardclass %}{% endblock %}">
 
-    <div class="card-header">
+    <div class="card-header {% block cardheaderclass %}{% endblock %}">
 
         <h5 class="card-title">
             {% block cardtitle %}{% endblock %}
@@ -15,4 +15,6 @@
         {% block cardbody %}{% endblock %}
 
     </div>
+
+
 </div>

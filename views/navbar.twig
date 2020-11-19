@@ -6,22 +6,26 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Options
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="editDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Edit Configuration</a>
+                <div class="dropdown-menu" aria-labelledby="editDropdown">
+                    <a class="dropdown-item" href="{{ baseurl }}">Edit EZProxy Config File</a>
                     <a class="dropdown-item" href="{{ baseurl }}/new">Add New Stanza</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ baseurl }}">Edit EZProxy Config File</a>
                     <a class="dropdown-item" href="{{ baseurl }}/preview">Preview EZProxy Config File</a>
-                    <a class="dropdown-item" href="{{ baseurl }}/write">Write EZProxy Config File</a>
+                    <a class="dropdown-item" href="{{ baseurl }}/validate">Validate EZProxy Config File</a>
                     <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ baseurl }}/write">Write EZProxy Config File</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="serverDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">EZProxy Server</a>
+                <div class="dropdown-menu" aria-labelledby="serverDropdown">
                     <a class="dropdown-item" href="{{ baseurl }}/upload">Upload to EZproxy server</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#revert">Revert EZproxy config file</a>
                     <a class="dropdown-item" href="#reboot">Reboot EZproxy server</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">EZproxy Admin</a>
+                    <a class="dropdown-item" href="https://libproxy.pcc.edu/login?user=pccit&pass=2001sP0AA" target="_blank">EZproxy Admin</a>
                 </div>
             </li>
 

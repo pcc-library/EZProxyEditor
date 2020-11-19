@@ -11,6 +11,7 @@ namespace PCC_EPE;
 $settings = require("ezpe-config.php");
 
 use PCC_EPE\Controllers\Authentication;
+use PCC_EPE\Controllers\ValidateData;
 use PCC_EPE\Models\Config;
 
 use AltoRouter;
@@ -56,6 +57,8 @@ $twig = new Environment($loader, [
 /** config Twig */
 $twig->addExtension(new DebugExtension());
 
+
+
 /** set state in Models\Config **/
 Config::$twig = $twig;
 Config::$post_data = $_REQUEST;
@@ -70,6 +73,8 @@ $router->map('POST',$strSubfolderRoute.'/','PCC_EPE\Controllers\RouteController#
 $router->map('GET',$strSubfolderRoute.'/write','PCC_EPE\Controllers\RouteController#write', 'write');
 
 $router->map('GET',$strSubfolderRoute.'/preview','PCC_EPE\Controllers\RouteController#preview', 'preview');
+
+$router->map('GET',$strSubfolderRoute.'/validate','PCC_EPE\Controllers\RouteController#validate', 'validate');
 
 $router->map('GET',$strSubfolderRoute.'/upload','PCC_EPE\Controllers\RouteController#upload', 'upload');
 

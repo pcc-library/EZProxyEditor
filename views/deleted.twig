@@ -2,6 +2,8 @@
 
 {% block cardclass %}deleted hide{% endblock %}
 
+{% block cardheaderclass %}bg-warning{% endblock %}
+
 {% block cardtitle %}
     Deleted Stanzas
 {% endblock %}
@@ -15,7 +17,8 @@
 
     </ul>
 
-    <a target="_self" href="{{ baseurl }}/" class="card-link">Revert to file</a><br/>
-    <a target="_self" href="{{ baseurl }}/write" class="card-link">Save to File</a>
+    <a target="_self" href="{{ baseurl }}/" class="card-link btn btn-secondary pull-left">Revert Changes</a>
+
+    <button id="update_config_button" class="btn-success btn pull-right" type="submit" disabled>Save Changes</button>
 
 {% endblock %}

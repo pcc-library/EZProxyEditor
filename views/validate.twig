@@ -1,17 +1,9 @@
-{% extends 'threecols.twig' %}
+{% extends 'twocols.twig' %}
 
-{% block title %}EZproxy Editor{% endblock %}
-
-{% block sidebar %}
-
-    {% include 'sidebar.twig' with {'status': 'edit'} %}
-
-{% endblock %}
+{% block title %}EZproxy Config Validate{% endblock %}
 
 {% block content %}
-
-        {% include 'editor_form.twig' %}
-
+    <div class="p-3">{% include 'config/sections_config_validate.twig' %}</div>
 {% endblock %}
 
 {% block messages %}
@@ -26,8 +18,7 @@
 
 {% block rightcol %}
 
-    {% set widgets = ['edited','deleted','rssfeed'] %}
+    {% set widgets = ['updated'] %}
     {% include 'rightcol.twig' with {'widgets': widgets } %}
 
 {% endblock %}
-

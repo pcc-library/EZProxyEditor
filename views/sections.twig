@@ -1,6 +1,10 @@
+{% if status %}
+    {% set class = status %}
+{% endif %}
+
 <h5>Sections</h5>
 
-<form id="update_config_form" method="post" action="/library/ezproxyeditor/">
+<form id="update_config_form" class="{{ class }}" method="post" action="/library/ezproxyeditor/">
 
     {% for section in sections %}
 
@@ -12,8 +16,5 @@
 
     {% endfor %}
 
-    <hr/>
-
-    <button id="update_config_button" class="btn-success btn" type="submit" disabled>Update Configuration</button>
 
 </form>

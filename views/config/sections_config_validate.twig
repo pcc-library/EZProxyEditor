@@ -1,0 +1,88 @@
+{% set count = titles | length %}
+{% set mcount = master | length %}
+{% set missing = [] %}
+<h3 class="mb-2">Current Configuration</h3>
+<p>{{ mcount }} subscription database stanzas in Master.</br>
+{{ count }} subscription database stanzas in Current Configuration.</p>
+
+<div class="row d-flex">
+
+    <div class="col-6">
+
+    {% embed "card.twig" %}
+
+        {% block cardclass %}{% endblock %}
+
+        {% block cardtitle %}Current Configuration{% endblock %}
+
+        {% block cardsubtitle %}{% endblock %}
+
+        {% block cardbody %}
+            <p>The current configuration contains these subscription database stanzas.</p>
+            <ul>
+
+{#                {{ dump(titles) }}#}
+
+            {% for title in titles %}
+
+                {% set found = "false" %}
+
+                {% for mtitle in master %}
+
+                    {% if title | trim  == mtitle | trim %}
+
+                        {% set found = "true" %}
+
+                    {% endif %}
+
+                {% endfor %}
+
+                {% if found != "true" %}
+
+                    {% set missing = missing | merge ([title]) %}
+
+                {% endif %}
+
+                <li class="p-0 m-0 {% if found != "true" %}text-success{% else %}text-secondary{% endif %}">{{ title | trim }}
+                    {% if found != "true" %}<span class="badge badge-secondary">New</span>{% endif %}</li>
+
+            {% endfor %}
+
+            </ul>
+
+        {% endblock %}
+
+
+    {% endembed %}
+
+    </div>
+
+    <div class="col-6">
+
+    {% embed "card.twig" %}
+
+    {% block cardclass %}{% endblock %}
+
+    {% block cardtitle %}Not Found{% endblock %}
+
+    {% block cardsubtitle %}{% endblock %}
+
+    {% block cardbody %}
+        <p>These stanzas from the master configuration were not found in the current configuration.</p>
+        <ul>
+
+            {% for item in difference %}
+
+                <li class="p-0 m-0 text-danger">{{ item | trim }}</li>
+
+            {% endfor %}
+        </ul>
+
+
+    {% endblock %}
+
+    {% endembed %}
+
+    </div>
+
+</div>

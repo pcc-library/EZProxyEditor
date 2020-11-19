@@ -37,6 +37,8 @@ class Config
 
     public static $post_data;
 
+    public static $master;
+
     public static $user = false;
 
     public static $users = ['dmeeds','gustavo.lanzas', 'lisa.molinelli'];

@@ -23,9 +23,10 @@ class Files
     /**
      * Find the file matching the pattern, return the filename
      * @param string $pattern
+     * @param string $suffix
      * @return int|string|null
      */
-    public function findConfigFile($pattern = 'config_*',$suffix = 'json') {
+    public function findConfigFile($pattern = 'config_*', $suffix = 'json') {
 
         $filename = $pattern.'.{'.$suffix.'}';
 
@@ -37,8 +38,10 @@ class Files
 
     }
 
+
     /**
      * Find the latest config file, and if not found, load config.master.txt
+     * @param bool $case
      * @return array
      */
     public function loadConfigFile() {
@@ -75,6 +78,19 @@ class Files
         $messages = new MessageController();
 
         $messages->addMessage( false, "Custom config file not found. Creating new one from master.");
+
+        $data = $this->getMasterConfigFile();
+
+        $config = Parsers::parseTextConfigFile($data);
+
+        $output = $this->writeEditorConfigFile($this->generateFilename(), $config);
+
+        return $output;
+
+    }
+
+    public function getMasterConfigFile() {
+
         $filename = EZPEPATH."/config.master.txt";
         $source = 'text';
 
@@ -85,12 +101,7 @@ class Files
             'config' => [ 'source' => $source ]
         ];
 
-
-        $config = Parsers::parseTextConfigFile($data);
-
-        $output = $this->writeEditorConfigFile($this->generateFilename(), $config);
-
-        return $output;
+        return $data;
 
     }
 
@@ -158,7 +169,7 @@ class Files
 
     public function generateFilename($filename = 'config_',$suffix = '.json') {
 
-        return $filename.date('mdY').$suffix;
+        return $filename.date('mdYhis').$suffix;
 
     }
 

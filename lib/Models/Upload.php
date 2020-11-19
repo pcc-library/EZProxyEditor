@@ -18,7 +18,7 @@ class Upload
 {
     public static $sftp_host = 'vmlib3.pcc.edu';
     public static $sftp_user = 'libsftptemp';
-    public static $sftp_password = 'jXSGj=cmw7';
+    public static $sftp_password = 'C0oor$d=100';
     public static $server_path = "~/";
 
 //    public static $sftp_host = 'vmwplibtestw01.pcc.edu';
