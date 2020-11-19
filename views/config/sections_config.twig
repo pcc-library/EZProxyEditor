@@ -2,7 +2,7 @@
 ## Start {{ section.section_title | trim }}
 
 {% for stanza in section.content %}
-# {{ stanza.stanza_title | trim }}
+# {{ stanza.stanza_title | trim | raw }}
 {{ stanza.stanza_body | trim | raw }}
 
 {% endfor %}

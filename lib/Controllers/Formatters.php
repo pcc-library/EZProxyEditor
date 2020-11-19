@@ -69,7 +69,7 @@ class Formatters
             if( strlen($stanza_title) > 1 ) {
 
                 $output[] = [
-                    'stanza_title' => trim($stanza_title),
+                    'stanza_title' => trim(html_entity_decode($stanza_title)),
                     'stanza_body' => trim($stanza_content)
                 ];
 
