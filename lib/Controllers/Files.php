@@ -150,7 +150,7 @@ class Files
 
         try {
 
-            file_put_contents(EZPEWRITEABLE.$filename, $output);
+            file_put_contents(EZPEWRITEABLE.$filename, $output . PHP_EOL);
 
             $messages->addMessage(true,"Wrote file ".basename($filename)." successfully");
 
