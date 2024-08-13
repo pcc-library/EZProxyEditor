@@ -45,4 +45,23 @@ class Config
 
     public static $settings;
 
+    public static $container;
+
+    /**
+     * Get the server's base URL.
+     *
+     * This method dynamically generates the base URL of the server
+     * using the current request's protocol (HTTP/HTTPS) and host.
+     *
+     * @return string The base URL of the server, e.g., 'http://localhost:8888'
+     */
+    public static function getServerBaseUrl(): string
+    {
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
+        $host = $_SERVER['HTTP_HOST'];
+
+        return $protocol . $host;
+    }
+
+
 }

@@ -1,11 +1,17 @@
 <?php // Editor Settings
 
+use PCC_EPE\Models\Config;
+
 return [
     // Directory to write config files to
     'write_path' => '/library/wp-content/uploads/ezpe/',
 
-    // base url - if installed in subdirectory
-    'baseurl' => '/library/ezproxyeditor',
+    /**
+     * Base URL of the application.
+     *
+     * This is dynamically set using the `getServerBaseUrl()` method from the Config class.
+     */
+    'baseurl' => Config::getServerBaseUrl() . '/library/ezproxyeditor',
 
     // cas settings
     'cas_host' => 'login.pcc.edu',

@@ -17,7 +17,8 @@ class Formatters
      * @param $text | string
      * @return array
      */
-    public static function formatMessage($status, $text) {
+    public static function formatMessage($status, $text): array
+    {
 
         return [
             $messages['status'] = $status,

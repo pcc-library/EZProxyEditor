@@ -3,7 +3,7 @@ window.$ = window.jQuery = require('jquery');
 /** handle side navigation **/
 function init_navigation(sidebar_links,clickedBtnID) {
 
-    var clicked_item = $('#'+clickedBtnID);
+    let clicked_item = $('#'+clickedBtnID);
 
     sidebar_links.filter( ".active" ).removeClass('active');
 
@@ -21,7 +21,7 @@ function init_buttons() {
 
     $('#delete_btn').click(function () {
 
-        var stanza_title = $('#stanza_title').val();
+        let stanza_title = $('#stanza_title').val();
 
         $("#stanza_to_delete").text(stanza_title);
 
@@ -59,7 +59,7 @@ function list_item_template(clickedBtnID,text) {
 
 function create_list_item(clickedBtnID, text, button) {
 
-    var target = $(button),
+    let target = $(button),
         item = target.find('*[data-id="'+clickedBtnID+'"]');
 
     if(!item.length) {
@@ -75,7 +75,7 @@ function create_list_item(clickedBtnID, text, button) {
 
 function edit_data(clickedBtnID) {
 
-    var stanza_title = $('#'+clickedBtnID+' input.stanza_title').val().trim(),
+    let stanza_title = $('#'+clickedBtnID+' input.stanza_title').val().trim(),
         stanza_body = $('#'+clickedBtnID+' input.stanza_body').val().trim();
     // last_edited = $('#'+clickedBtnID+' input.last_edited').val().trim();
 
@@ -99,7 +99,7 @@ function edit_data(clickedBtnID) {
 
 function update_stanza() {
 
-    var target_id = $('#origin_id').val(),
+    let target_id = $('#origin_id').val(),
         stanza_title = $('#stanza_title').val(),
         stanza_body = $('#stanza_body').val(),
         // last_edited = $('#last_edited').val(),
@@ -123,7 +123,7 @@ function update_stanza() {
 
 function delete_stanza() {
 
-    var target_id = $('#origin_id').val(),
+    let target_id = $('#origin_id').val(),
         stanza_title = $('#stanza_title').val(),
         status = $('.sidebar.right .card.deleted');
 
@@ -143,7 +143,7 @@ function delete_stanza() {
 
 function revert_editor() {
 
-    var previous_title = $('#previous_title').val(),
+    let previous_title = $('#previous_title').val(),
         previous_body = $('#previous_body').val();
 
     $('#stanza_title').val(previous_title);
@@ -185,7 +185,7 @@ function enable_update_button() {
 
 function enable_reorder() {
 
-    var menu = $( ".sortable" );
+    let menu = $( ".sortable" );
 
     menu.sortable({
         update: function(event, ui)
@@ -202,11 +202,11 @@ function select_category() {
 
     $("#category").on('change', function () {
 
-        var value = $(this).val();
+        let value = $(this).val();
 
         if(value) {
 
-            var category_select = $("#menu"+value);
+            let category_select = $("#menu"+value);
 
             $(category_select).collapse('toggle');
 
@@ -242,15 +242,15 @@ function stanza_template(title, content, section, iterate) {
 
 function insert_new_stanza() {
 
-    var section = $("#category").val(),
+    let section = $("#category").val(),
         stanza_title = $('#stanza_title').val(),
         stanza_body = $('#stanza_body').val(),
         status = $('.sidebar.right .card.edited'),
         menu = $("#menu"+section);
 
 
-    var count = menu.children();
-    var offset = count.length + Math.floor(Math.random() * 10);
+    let count = menu.children();
+    let offset = count.length + Math.floor(Math.random() * 10);
 
     menu.parents('.bd-toc-item').find('h5').addClass('updated');
 
@@ -272,10 +272,10 @@ function insert_new_stanza() {
 
 $( document ).ready(function() {
 
-    var sidebar_links = $('#sidebar .edit ul li a');
+    let sidebar_links = $('#sidebar .edit ul li a');
 
     $(sidebar_links).on("click", function () {
-        var clickedBtnID = $(this).parent().attr('id'); // or var clickedBtnID = this.id
+        let clickedBtnID = $(this).parent().attr('id'); // or let clickedBtnID = this.id
 
         init_navigation(sidebar_links,clickedBtnID);
     });
@@ -292,7 +292,7 @@ $( document ).ready(function() {
 
     $(function () {
         $('#editor_form').on('change', function () {
-            var title = $('#stanza_title'),
+            let title = $('#stanza_title'),
                 body = $('#stanza_body'),
                 i = 0;
 

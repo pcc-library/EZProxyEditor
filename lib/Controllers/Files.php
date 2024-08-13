@@ -9,7 +9,11 @@
 namespace PCC_EPE\Controllers;
 
 use Exception;
+use PCC_EPE\Models\Config;
 use PCC_EPE\View\RenderView;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 /**
  * Class Files
@@ -26,7 +30,8 @@ class Files
      * @param string $suffix
      * @return int|string|null
      */
-    public function findConfigFile($pattern = 'config_*', $suffix = 'json') {
+    public function findConfigFile($pattern = 'config_*', $suffix = 'json'): int|string|null
+    {
 
         $filename = $pattern.'.{'.$suffix.'}';
 
@@ -44,7 +49,8 @@ class Files
      * @param bool $case
      * @return array
      */
-    public function loadConfigFile() {
+    public function loadConfigFile(): array
+    {
 
         $filename = $this->findConfigFile();
 
@@ -73,6 +79,9 @@ class Files
 
     }
 
+    /**
+     * @return mixed
+     */
     public function generateNewConfig() {
 
         $messages = new MessageController();
@@ -83,13 +92,15 @@ class Files
 
         $config = Parsers::parseTextConfigFile($data);
 
-        $output = $this->writeEditorConfigFile($this->generateFilename(), $config);
-
-        return $output;
+        return $this->writeEditorConfigFile($this->generateFilename(), $config);
 
     }
 
-    public function getMasterConfigFile() {
+    /**
+     * @return array
+     */
+    public function getMasterConfigFile(): array
+    {
 
         $filename = EZPEPATH."/config.master.txt";
         $source = 'text';
@@ -105,9 +116,15 @@ class Files
 
     }
 
+    /**
+     * @param $filename
+     * @param $data
+     * @return mixed
+     */
     public function writeEditorConfigFile($filename, $data) {
 
         $messages = new MessageController();
+        $filecontent = [];
 
         try {
 
@@ -131,43 +148,58 @@ class Files
         return $data;
     }
 
-    public function writeTextConfig() {
-
+    /**
+     * @return false|string
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
+    public function writeTextConfig(): bool|string
+    {
         $messages = new MessageController();
 
+        // Clear previous messages
         $messages->clearMessages();
 
-        $files = new Files();
-        $render = new RenderView();
+        // Load the configuration data
+        $file = $this->loadConfigFile();
 
-        $file = $files->loadConfigFile();
-
+        // Parse the JSON configuration file
         $data = Parsers::parseJsonConfigFile($file);
 
-        $filename = self::generateFilename('config_','.txt');
-
-        $output = $render->getTemplate("config/sections_config", $data);
+        // Generate a filename for the new configuration file
+        $filename = $this->generateFilename('config_', '.txt');
 
         try {
+            // Instantiate RenderView with the required parameters
+            $renderView = new RenderView(Config::$twig);
 
-            file_put_contents(EZPEWRITEABLE.$filename, $output . PHP_EOL);
+            // Get the template content for the config file
+            $output = $renderView->getTemplate("config/sections_config", $data);
 
-            $messages->addMessage(true,"Wrote file ".basename($filename)." successfully");
+            // Write the output to the file
+            file_put_contents(EZPEWRITEABLE . $filename, $output . PHP_EOL);
+
+            // Log success
+            $messages->addMessage(true, "Wrote file " . basename($filename) . " successfully");
 
             return $filename;
-
-
-        }  catch(Exception $e) {
-
-            $messages->addMessage(false, "Couldn\'t write file ".basename($filename));
+        } catch (Exception $e) {
+            // Log any errors that occur during the write operation
+            $messages->addMessage(false, "Couldn't write file " . basename($filename));
+            error_log("Error in writeTextConfig: " . $e->getMessage(), 3, "/var/log/cas_debug.log");
 
             return false;
-
         }
-
     }
 
-    public function generateFilename($filename = 'config_',$suffix = '.json') {
+
+    /**
+     * @param string $filename
+     * @param string $suffix
+     * @return string
+     */
+    public function generateFilename(string $filename = 'config_', string $suffix = '.json') {
 
         return $filename.date('mdYhis').$suffix;
 

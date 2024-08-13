@@ -11,7 +11,7 @@
         }
     },
     "require": {
-        "altorouter/altorouter": "^1.1.0",
+        "altorouter/altorouter": "^2.0",
         "guzzlehttp/guzzle": "^7.0",
         "phpseclib/phpseclib": "^3.0",
         "twig/twig": "^2.6",

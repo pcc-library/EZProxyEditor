@@ -5,11 +5,13 @@
  * Date: 2019-02-25
  * Time: 21:36
  */
-
 namespace PCC_EPE\View;
 
 use PCC_EPE\Controllers\MessageController;
-use PCC_EPE\Models\Config;
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 /**
  * Class RenderView
@@ -17,22 +19,26 @@ use PCC_EPE\Models\Config;
  */
 class RenderView
 {
+    protected $twig;
+
+    public function __construct(Environment $twig)
+    {
+        $this->twig = $twig;
+    }
 
     /**
      * @param $template
      * @param $data
-     * @return mixed
+     * @return string
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
-    public function getTemplate($template, $data) {
-
-        $twig = Config::$twig;
-
+    public function getTemplate($template, $data): string
+    {
         $messages = new MessageController();
-
         $data['messages'] = $messages->getMessages();
 
-        return $twig->render($template.".twig", $data);
-
+        return $this->twig->render($template . ".twig", $data);
     }
-
 }

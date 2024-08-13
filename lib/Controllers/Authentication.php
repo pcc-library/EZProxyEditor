@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: gustavo.lanzas
- * Date: 2019-03-17
- * Time: 21:40
- */
 
 namespace PCC_EPE\Controllers;
 
@@ -13,69 +7,76 @@ use PCC_EPE\Models\Config;
 
 /**
  * Class Authentication
- * @package PCC_EPE\Controllers
+ * Handles user authentication using CAS.
  */
 class Authentication
 {
-
     /**
      * Authentication constructor.
      */
-    public function __construct() {
-
+    public function __construct()
+    {
         // Enable debugging
-        phpCAS::setDebug();
+        phpCAS::setDebug('/var/log/cas_debug.log');
 
-        // Enable verbose error messages. Disable in production!
+        // Enable verbose error messages (useful for development)
         phpCAS::setVerbose(true);
 
-        // Initialize phpCAS
-        phpCAS::client(CAS_VERSION_2_0, CAS_HOST, CAS_PORT, CAS_CONTEXT);
+        // Use only the base URL (without path) for CAS client
+        $baseUrl = 'http://localhost:8888';
 
-        // For production use set the CA certificate that is the issuer of the cert
-        // on the CAS server and uncomment the line below
-        // phpCAS::setCasServerCACert($cas_server_ca_cert_path);
-        // For quick testing you can disable SSL validation of the CAS server.
-        // THIS SETTING IS NOT RECOMMENDED FOR PRODUCTION.
-        // VALIDATING THE CAS SERVER IS CRUCIAL TO THE SECURITY OF THE CAS PROTOCOL!
+//        // Debug: Log the base URL before passing to phpCAS::client
+//        error_log("Base URL before phpCAS::client: " . $baseUrl, 3, "/var/log/cas_debug.log");
 
+        // Initialize phpCAS with the CAS server details
+        phpCAS::client(CAS_VERSION_2_0, CAS_HOST, CAS_PORT, CAS_CONTEXT, $baseUrl);
+
+        // Disable SSL validation (not recommended for production)
         phpCAS::setNoCasServerValidation();
 
-        // force CAS authentication
+        // Force CAS authentication
         phpCAS::forceAuthentication();
 
-        Config::$user = self::checkUser();
-
-    }
-
-    /**
-     * @return bool
-     */
-    public function getUser() {
-
-        return Config::$user;
-
-    }
-
-    /**
-     * @return bool
-     */
-    public function checkUser() {
-
+        // Retrieve authenticated user
         $user = phpCAS::getUser();
-        $users = Config::$users;
 
-        if(in_array($user,$users)) {
+        // Debug output to log or display the user information
+//        error_log('CAS Authenticated User: ' . print_r($user, true), 3, "/var/log/cas_debug.log");
+//        echo '<pre>';
+//        var_dump($user);
+//        echo '</pre>';
 
-           return $user;
-
-        } else {
-
-            return false;
-        }
-
-
-
+        // Store the authenticated user in the configuration
+        Config::$user = $this->checkUser($user);
     }
 
+    /**
+     * Check if the authenticated user is in the allowed users list.
+     *
+     * @param string $user The CAS authenticated user
+     * @return bool|string The user if allowed, false otherwise
+     */
+    public function checkUser($user)
+    {
+        $allowedUsers = Config::$users;
+
+        // Debug logging
+//        error_log("Authenticated User: " . $user, 3, "/var/log/cas_debug.log");
+//        error_log("Allowed Users: " . print_r($allowedUsers, true), 3, "/var/log/cas_debug.log");
+
+        $isAllowed = in_array($user, $allowedUsers);
+        error_log("Check Result: " . ($isAllowed ? 'Allowed' : 'Denied'), 3, "/var/log/cas_debug.log");
+
+        return $isAllowed ? $user : false;
+    }
+
+    /**
+     * Get the authenticated user.
+     *
+     * @return bool|string
+     */
+    public function getUser()
+    {
+        return Config::$user;
+    }
 }

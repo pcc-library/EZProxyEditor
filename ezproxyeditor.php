@@ -1,32 +1,64 @@
 <?php
-
-namespace PCC_EPE;
-
-require( __DIR__ . '/vendor/autoload.php');
-require( __DIR__ . '/ezpe-initialize.php');
+/**
+ * ezproxyeditor.php
+ *
+ * Main entry point for the EZProxy Editor application.
+ * Handles routing and rendering of views.
+ *
+ * @package PCC_EPE
+ * @version 1.0
+ */
 
 use PCC_EPE\Models\Config;
-use PCC_EPE\View\RenderView;
 
-/** Instantiate view renderer */
-$view = new RenderView();
-$router = Config::$router;
+// Include the Composer autoloader
+require_once __DIR__ . '/vendor/autoload.php';
 
-$match = $router->match();
+// Include the initialization file
+require_once 'ezpe-initialize.php';
 
-if ($match === false) {
+// Authenticate the user
+$auth = new PCC_EPE\Controllers\Authentication();
+$casUser = phpCAS::getUser();
+$authenticatedUser = $auth->checkUser($casUser);
 
-    header("HTTP/1.0 404 Not Found");
-    echo $view->getTemplate('404', []);
+var_dump($authenticatedUser);
 
-} else {
-    list($controller, $action) = explode('#', $match['target']);
-    $controller = new $controller;
-    if (is_callable(array($controller, $action))) {
-        call_user_func_array(array($controller, $action), array($match['params']));
-    } else {
-        echo 'Error: can not call ' . get_class($controller) . '#' . $action;
-        // here your routes are wrong.
-        // Throw an exception in debug, send a 500 error in production
-    }
+// Debug output for CAS user
+error_log("CAS Authenticated User: " . var_export($authenticatedUser, true), 3, '/var/log/cas_debug.log');
+
+if (!$authenticatedUser) {
+    // Redirect to a "Not Authorized" page or show an error
+    header('Location: ' . BASEURL . '/unauthorized');
+    exit();
 }
+
+// Debug output for router base path
+error_log("Router Base Path: " . var_export(Config::$router->getBasePath(), true), 3, '/var/log/cas_debug.log');
+
+// Match the current request
+$match = Config::$router->match();
+
+// Debug output for router match
+error_log("Router Match: " . var_export($match, true), 3, '/var/log/cas_debug.log');
+
+if ($match) {
+    list($controller, $method) = explode('#', $match['target']);
+    if (is_callable(array($controller, $method))) {
+        call_user_func_array(array(new $controller, $method), array($match['params']));
+    } else {
+        // Handle the error
+        header($_SERVER["SERVER_PROTOCOL"] . ' 404 Not Found');
+        echo "404 Not Found";
+        error_log("Error: 404 Not Found - Controller method not callable", 3, '/var/log/cas_debug.log');
+    }
+} else {
+    // No route was matched
+    header($_SERVER["SERVER_PROTOCOL"] . ' 404 Not Found');
+    echo "404 Not Found";
+    error_log("Error: 404 Not Found - No route matched", 3, '/var/log/cas_debug.log');
+}
+
+// Output headers after routing logic
+header("Content-Type: text/html; charset=utf-8");
+
