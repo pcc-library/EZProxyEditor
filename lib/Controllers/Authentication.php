@@ -22,8 +22,8 @@ class Authentication
         // Enable verbose error messages (useful for development)
         phpCAS::setVerbose(true);
 
-        // Use only the base URL (without path) for CAS client
-        $baseUrl = 'http://localhost:8888';
+        // Get the base URL without the path
+        $baseUrl = Config::getServerBaseUrl();
 
 //        // Debug: Log the base URL before passing to phpCAS::client
 //        error_log("Base URL before phpCAS::client: " . $baseUrl, 3, "/var/log/cas_debug.log");

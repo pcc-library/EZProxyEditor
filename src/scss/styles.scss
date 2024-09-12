@@ -1,12 +1,9 @@
-/* Import Bootstrap 4 */
-@import "../../node_modules/bootstrap/scss/bootstrap";
-
-/* Custom variables */
+/* import bootstrap */
+@import "bootstrap";
 @import "custom_variables";
 
-/* Font Awesome */
-$fa-font-path: "../assets/fonts";
+/* font awesome */
+$fa-font-path: "../../assets/fonts/font-awesome";
 @import "../../node_modules/font-awesome/scss/font-awesome";
-
-/* Custom styles */
+/* custom styles */
 @import "custom_styles";
