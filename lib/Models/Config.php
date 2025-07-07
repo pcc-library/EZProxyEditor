@@ -41,7 +41,7 @@ class Config
 
     public static $user = false;
 
-    public static $users = ['dmeeds','gustavo.lanzas', 'lisa.molinelli'];
+    public static $users = ['dmeeds','gustavo.lanzas', 'lisa.morrow' ,'maria.wagner','amanda.perez1'];
 
     public static $settings;
 
